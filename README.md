@@ -5,20 +5,32 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+### バージョン
+* Ruby version 3.0.1p64
+* Rails version 6.0.4.4
 
-* System dependencies
+### 使用する技術(学んだもの)
 
-* Configuration
+* AWS EC2
+* devise
 
-* Database creation
+### 使用する技術(学んでないもの)
 
-* Database initialization
+* ウェブスクレイピング
 
-* How to run the test suite
+### アプリケーションの実行手順
+1. git clone (this URL)
+2. rails s
 
-* Services (job queues, cache servers, search engines, etc.)
+### カタログ設計、テーブルのリンク
+* https://docs.google.com/spreadsheets/d/1MQkbYoGSneAQ9bGvPu4UAIiaNBwJDaikeDFLRe2j0AA/edit?usp=sharing
 
-* Deployment instructions
+### ワイヤーフレームのリンク
+* https://drive.google.com/file/d/1tITMyCF8p5ovq3KrnJE2QtmIFJi2wEBe/view?usp=sharing
 
-* ...
+### ER図
+![スクリーンショット 2022-02-04 1 07 14](https://user-images.githubusercontent.com/92619325/152381414-fb31c9c7-e831-4569-b09d-cc9401ee8b0b.png)
+
+### 画面遷移図
+![スクリーンショット 2022-02-04 1 06 31](https://user-images.githubusercontent.com/92619325/152381516-5fd399f1-8115-4a64-9e2f-ff96babaddc8.png)
+

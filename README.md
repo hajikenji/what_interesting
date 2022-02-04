@@ -34,7 +34,9 @@ rails s
 * https://drive.google.com/file/d/1tITMyCF8p5ovq3KrnJE2QtmIFJi2wEBe/view?usp=sharing
 
 ### ER図
-![スクリーンショット 2022-02-04 1 07 14](https://user-images.githubusercontent.com/92619325/152381414-fb31c9c7-e831-4569-b09d-cc9401ee8b0b.png)
+![スクリーンショット 2022-02-04 13 20 30](https://user-images.githubusercontent.com/92619325/152471194-92d046b1-13bd-4ca1-a63e-1128c7cae325.png)
+
+
 
 ### 画面遷移図
 ![スクリーンショット 2022-02-04 1 06 31](https://user-images.githubusercontent.com/92619325/152381516-5fd399f1-8115-4a64-9e2f-ff96babaddc8.png)

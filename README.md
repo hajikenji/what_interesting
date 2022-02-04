@@ -19,8 +19,13 @@ Things you may want to cover:
 * ウェブスクレイピング
 
 ### アプリケーションの実行手順
-1. git clone (this URL)
-2. rails s
+```
+git clone (this URL)
+cd what_interesting
+bundle install
+rails db:create && rails db migrate
+rails s
+```
 
 ### チェックシート、カタログ設計、テーブルのリンク
 * https://docs.google.com/spreadsheets/d/1MQkbYoGSneAQ9bGvPu4UAIiaNBwJDaikeDFLRe2j0AA/edit?usp=sharing

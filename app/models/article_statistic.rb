@@ -1,0 +1,2 @@
+class ArticleStatistic < ApplicationRecord
+end

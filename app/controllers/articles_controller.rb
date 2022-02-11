@@ -3,7 +3,8 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = Article.all
+    #記事内いいね順で降順
+    @articles = Article.joins(:article_statistic).all.order(fav: "DESC")
   end
 
   # GET /articles/1 or /articles/1.json

@@ -32,7 +32,7 @@ class ArticleStatistic < ApplicationRecord
       begin
         doc = Nokogiri::HTML(URI.open(url))
       rescue StandardError => e
-        pp e
+        p e
         next
       end
 
@@ -46,9 +46,10 @@ class ArticleStatistic < ApplicationRecord
       begin
         doc = Nokogiri::HTML(URI.open(url))
       rescue => e
-        pp e
+        p e
         next
       end
+      next if doc.search('title').text.blank? || comments.blank?
 
       title = doc.search('title').text
       puts title
@@ -77,6 +78,7 @@ class ArticleStatistic < ApplicationRecord
 
       
     end
+    
     for_foreignkey_article_statistics = Article.upsert_all(list_article_update,unique_by: :link, returning: %i[id title])
 
     # article_statisticsのupsert
@@ -84,7 +86,6 @@ class ArticleStatistic < ApplicationRecord
     for_foreignkey_article_statistics.rows.each do |f|
       list_article_statictics_update[num][:article_id] = f[0]
       num += 1
-      # binding.irb
     end
     ArticleStatistic.upsert_all(list_article_statictics_update, unique_by: :article_id)
   end

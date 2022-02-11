@@ -5,7 +5,7 @@ class CreateArticleStatistics < ActiveRecord::Migration[6.0]
       t.integer :fav
       t.integer :comment_fav
       t.integer :quote
-      t.references :article, foreign_key: true
+      t.references :article, index: { unique: true }, foreign_key: true
       t.timestamps
     end
   end

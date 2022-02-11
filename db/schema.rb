@@ -23,16 +23,17 @@ ActiveRecord::Schema.define(version: 2022_02_09_084153) do
     t.bigint "article_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["article_id"], name: "index_article_statistics_on_article_id"
+    t.index ["article_id"], name: "index_article_statistics_on_article_id", unique: true
   end
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
-    t.text "link"
+    t.text "link", null: false
     t.text "icon"
     t.integer "ranking"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["link"], name: "index_articles_on_link", unique: true
   end
 
   add_foreign_key "article_statistics", "articles"

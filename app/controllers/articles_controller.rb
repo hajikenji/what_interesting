@@ -13,7 +13,6 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   def new
     @article = Article.new
-    binding.pry
   end
 
   # GET /articles/1/edit
@@ -22,6 +21,7 @@ class ArticlesController < ApplicationController
 
   # POST /articles or /articles.json
   def create
+    p ArticleStatistic.scraping_yahoo
     @article = Article.new(article_params)
 
     respond_to do |format|

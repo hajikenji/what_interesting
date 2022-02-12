@@ -49,7 +49,9 @@ class ArticleStatistic < ApplicationRecord
         p e
         next
       end
-      next if doc.search('title').text.blank? || comments.blank?
+      #タイトルがないか || コメントがないか || コメントが0なら飛ばす。 
+      #0も判定に入れたのはコメ機能なしなのに「0」が埋め込まれていた記事があったため
+      next if doc.search('title').text.blank? || comments.blank? || comments == 0
 
       title = doc.search('title').text
       puts title

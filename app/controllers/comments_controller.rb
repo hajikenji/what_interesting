@@ -23,15 +23,16 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    #new画面でindex表示させるためのall
-    @comments = Comment.all
+    # new画面でindex表示させるためのall
+    @comments = Comment.where(article_id: params[:article_id])
 
+    # user_idとarticle_idが外部キーのため入れている
     @comment = current_user.comments.build(comment_params)
     @comment[:article_id] = params[:article_id]
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to new_article_comment_path(@comment), notice: "Comment was successfully created." }
+        format.html { redirect_to new_article_comment_path(@comment.article_id), notice: "Comment was successfully created." }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }

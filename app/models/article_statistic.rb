@@ -22,6 +22,7 @@ class ArticleStatistic < ApplicationRecord
     #バルクインサートと、そのためのリストの準備
     list_article_update = []
     list_article_statictics_update = []
+    check_unique_url = ['']
     
 
     # 各ニュースごとに情報収集
@@ -53,6 +54,10 @@ class ArticleStatistic < ApplicationRecord
       #0も判定に入れたのはコメ機能なしなのに「0」が埋め込まれていた記事があったため
       next if doc.search('title').text.blank? || comments.blank? || comments == 0
 
+      # urlがダブってないかチェック。yahoo上で同じ記事が連続で掲載されてたことがあり、ダブるとupsertがエラーるために処理
+      check_unique_url << url
+      next if check_unique_url.uniq!
+
       title = doc.search('title').text
       puts title
 
@@ -72,18 +77,23 @@ class ArticleStatistic < ApplicationRecord
         sum_reaction += t.to_i
       end
 
-      list_article_update << {title: title, link: url, created_at: Time.now.to_s,
-                               updated_at: Time.now.to_s }
-      list_article_statictics_update << { comment: comments, fav: sum_reaction, created_at: Time.now.to_s,
-                                          updated_at: Time.now.to_s }
+      # upsert_allの形式に合わせ、[{},{}] の形式で各情報を入れていく。Timeのto_sは変換しないとエラーになるため
+      time_zone = Time.now.to_s
+      list_article_update << {title: title, link: url, created_at: time_zone,
+                               updated_at: time_zone }
+      list_article_statictics_update << { comment: comments, fav: sum_reaction, created_at: time_zone,
+                                          updated_at: time_zone }
 
 
       
     end
     
-    for_foreignkey_article_statistics = Article.upsert_all(list_article_update,unique_by: :link, returning: %i[id title])
+    # unique_list_article_update = list_article_update
+    # 更新作業と同時に、戻り値としてidとtitleをもらう。statisticsは外部キー制約のためarticleのidが必要で、titleはデバッグ用
+    for_foreignkey_article_statistics = Article.upsert_all(list_article_update.uniq ,unique_by: :link, returning: %i[id title])
 
     # article_statisticsのupsert
+    # 外部キー制約のために一つずつidを入れていく。
     num = 0
     for_foreignkey_article_statistics.rows.each do |f|
       list_article_statictics_update[num][:article_id] = f[0]

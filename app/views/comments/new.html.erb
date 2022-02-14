@@ -19,8 +19,8 @@
     <% @comments.each do |comment| %>
       <tr>
         <td><%= comment.content %></td>
-        <td><%#= link_to 'Show', comment %></td>   
-        <% if current_user.id == comment.user_id %>
+        <td><%#= link_to 'Show', comment %></td>
+        <% if user_signed_in? && current_user.id == comment.user_id %>
           <td><%= link_to 'Edit', edit_article_comment_path(params[:article_id], comment) %></td>
           <td><%= link_to 'Destroy', article_comment_path(params[:article_id], comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>

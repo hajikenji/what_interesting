@@ -6,5 +6,5 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable, :trackable
 
   has_many :comments
-  validates :name, presence: true, uniqueness: true
+  validates :name, length: { in: 5..15 }, uniqueness: true
 end

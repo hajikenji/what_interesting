@@ -1,3 +1,10 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :users, only: %i[show update]
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  devise_for :users
+  resources :articles, except: %i[update destroy] do
+    resources :comments, except: :index
+  end
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+  root 'articles#index'
 end

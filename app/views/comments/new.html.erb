@@ -1,0 +1,34 @@
+<h1>New Comment</h1>
+<% unless user_signed_in? %>
+  <p>※コメント投稿にはログインが必要です</p>
+<% end %>
+
+<%= render 'form', comment: @comment %>
+
+<h1>Comments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>comment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.content %></td>
+        <td><%#= link_to 'Show', comment %></td>
+        <% if user_signed_in? && current_user.id == comment.user_id %>
+          <td><%= link_to 'Edit', edit_article_comment_path(params[:article_id], comment) %></td>
+          <td><%= link_to 'Destroy', article_comment_path(params[:article_id], comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back', articles_path %>

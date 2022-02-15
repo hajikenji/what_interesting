@@ -1,15 +1,17 @@
-<h1>New Comment</h1>
+<h2><%= @article_title %></h2>
 <% unless user_signed_in? %>
   <p>※コメント投稿にはログインが必要です</p>
 <% end %>
 
 <%= render 'form', comment: @comment %>
 
-<h1>Comments</h1>
+<h2>Comments</h2>
 
 <table>
   <thead>
     <tr>
+      <th class="image_th">icon</th>
+      <th>user_name</th>
       <th>comment</th>
       <th colspan="3"></th>
     </tr>
@@ -18,6 +20,8 @@
   <tbody>
     <% @comments.each do |comment| %>
       <tr>
+        <td class="image_td"><%= image_tag "default.png", class: "default" %></td>
+        <td><%= comment.user.name %></td>
         <td><%= comment.content %></td>
         <td><%#= link_to 'Show', comment %></td>
         <% if user_signed_in? && current_user.id == comment.user_id %>

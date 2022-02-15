@@ -12,7 +12,6 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @article_title = Article.find(params[:article_id]).title
     @comment = Comment.new
     @comments = Comment.where(article_id: params[:article_id])
     

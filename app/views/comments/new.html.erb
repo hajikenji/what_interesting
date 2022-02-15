@@ -1,9 +1,9 @@
-<h2><%= @article_title %></h2>
+<h2><%= Article.find(params[:article_id]).title %></h2>
 <% unless user_signed_in? %>
   <p>※コメント投稿にはログインが必要です</p>
+<% else %>
+  <%= render 'form', comment: @comment %>
 <% end %>
-
-<%= render 'form', comment: @comment %>
 
 <h2>Comments</h2>
 

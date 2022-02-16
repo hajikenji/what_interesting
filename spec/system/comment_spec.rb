@@ -113,7 +113,44 @@ RSpec.describe 'サイト全体テスト', type: :system do
         expect(page).to have_content 'Eメールまたはパスワードが違います。'
       end
     end
-
+    context '他人のコメントを編集できないように' do
+      before do
+        click_link 'ログイン'
+        @user = create(:user)
+        @user.confirm
+        sleep(0.2)
+        fill_in 'user[email]', with: @user.email
+        fill_in 'user[password]', with: @user.password
+        click_on 'commit'
+      end
+      it '他人のをedit,destroyできない' do
+          click_link 'コメント一覧', href: new_article_comment_path(Article.first.id)
+          @user = create(:user)
+          @article = Article.first
+          @comment = @article.comments.build({ content: 'aaaaa' })
+          @comment[:user_id] = @user.id
+          @comment.save
+          visit current_path
+          expect(page).not_to have_link nil, href: edit_article_comment_path(@article, @comment)
+          expect(page).not_to have_link nil, href: article_comment_path(@article, @comment)
+        end
+      it '自分のはedit,destroyできる' do
+          click_link 'コメント一覧', href: new_article_comment_path(Article.first.id)
+          fill_in 'comment[content]', with: 'aaaaa'
+          click_on 'commit'
+          visit current_path
+          @article = Article.first.id
+          expect(page).to have_link nil, href: edit_article_comment_path(@article, @user.comments[0][:id])
+          expect(page).to have_link nil, href: article_comment_path(@article, @user.comments[0][:id])
+          click_link nil, href: edit_article_comment_path(@article,  @user.comments[0][:id])
+          fill_in 'comment[content]', with: 'aaaaa1'
+          click_on 'commit'
+          expect(page).to have_content 'aaaaa1'
+          click_link nil, href: article_comment_path(@article, @user.comments[0][:id])
+          page.accept_confirm
+          expect(page).not_to have_content 'aaaaa1'
+      end
+      end
     end
   end
 end

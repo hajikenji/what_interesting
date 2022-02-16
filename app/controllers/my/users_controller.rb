@@ -1,7 +1,22 @@
 class My::UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy]
 
-  def show; end
+  # ゲスト用が不要になれば中身は消すコードたち
+  def show
+    # binding.pry
+    # ゲストユーザー兼ゲスト管理者用if文
+    if params[:id] == 'guest' || params[:id] == 'admin'
+      if User.find_by(email: 'q@a.com')
+        @user = User.find_by(email: 'q@a.com') 
+      else
+        @user = User.create(name: 'test1', email: 'q@a.com', password: 'qqqqqq', admin: true)
+        @user.confirm
+      end
+      sign_in @user
+      @current_user = @user
+    end
+    redirect_to rails_admin_path if params[:id] == 'admin'
+  end
 
   def update
     if @user.update(user_params)
@@ -14,12 +29,10 @@ class My::UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(current_user.id)
-    # showとupdateを同じページにしたため、これで分けないと
-    # バリデーションに引っかかる→showに戻る→ページ上では変更されている（内部的には変更していない）
-    # というおかしな表記になってしまうため。原因はエラー文表示時は@userに情報が入るから、@user.nameで
-    # 表記しているとバリデーションエラー時の情報が入ってしまうこと
-    @show_user = User.find(current_user.id)
+    if current_user.present?
+      @user = User.find(current_user.id)
+    end
+
   end
 
   def user_params

@@ -5,6 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
   validates :name, length: { in: 5..15 }, uniqueness: true
 end

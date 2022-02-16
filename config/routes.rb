@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :comments, except: :index
   end
   namespace :my do
-    resources :users, only: %i[show update]
+    resources :users, only: %i[show update destroy]
   end
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
   root 'articles#index'

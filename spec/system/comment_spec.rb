@@ -103,6 +103,15 @@ RSpec.describe 'サイト全体テスト', type: :system do
         click_on 'commit'
         expect(page).to have_content 'fffff'
       end
+      it '退会できてデータが残っていない' do
+        click_link 'マイページ'
+        click_on '退会する'
+        click_link 'ログイン'
+        fill_in 'user[email]', with: @user.email
+        fill_in 'user[password]', with: @user.password
+        click_on 'commit'
+        expect(page).to have_content 'Eメールまたはパスワードが違います。'
+      end
     end
 
     end

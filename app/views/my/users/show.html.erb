@@ -29,3 +29,9 @@
 <div>
   <%= button_to "退会する", user_registration_path, {method: :delete} %>
 </div>
+
+<% if current_user.admin? %>
+  <div>
+    <%= link_to '管理者', rails_admin_path %>
+  </div>
+<% end %>

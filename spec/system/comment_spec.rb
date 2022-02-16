@@ -29,11 +29,11 @@ RSpec.describe 'サイト全体テスト', type: :system do
         expect(page).to have_selector '.default'
         expect(page).to have_content @comment.content
       end
-      it '非ログイン時コメント投稿はできない' do
+      it '非ログイン時コメント投稿はできない、画面上操作' do
         click_link 'コメント一覧', href: new_article_comment_path(Article.first.id)
         expect(page).to have_content "※コメント投稿にはログインが必要です"
       end
-      it '非ログイン時コメント投稿はできない' do
+      it '非ログイン時コメント投稿はできない、単純にcreateを弾けるか' do
         begin
           create(:comment)
         rescue => e
@@ -151,6 +151,30 @@ RSpec.describe 'サイト全体テスト', type: :system do
           expect(page).not_to have_content 'aaaaa1'
       end
       end
+    context '管理者系' do
+      before do
+        click_link 'ログイン'
+        @user = create(:user)
+        @user.confirm
+        sleep(0.2)
+        fill_in 'user[email]', with: @user.email
+        fill_in 'user[password]', with: @user.password
+        click_on 'commit'
+      end
+      it '管理者は画面に入れる' do
+        @user.update(admin: true)
+        click_link 'マイページ'
+        click_link nil, href: rails_admin_path
+        expect(page).to have_content 'サイト管理'
+      end
+      it '管理者以外はリンクが表示されない、また入れない' do
+          click_link 'マイページ'
+          expect(page).not_to have_link nil, href: rails_admin_path
+          e = visit rails_admin_path
+          expect(e).to eq nil
+        end
+      
+     end
     end
   end
 end

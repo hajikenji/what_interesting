@@ -7,11 +7,13 @@ class My::UsersController < ApplicationController
     # ゲストユーザー兼ゲスト管理者用if文
     if params[:id] == 'guest' || params[:id] == 'admin'
       if User.find_by(email: 'q@a.com')
-        @user = User.find_by(email: 'q@a.com') 
+        @user = User.find_by(email: 'q@a.com')
       else
         @user = User.create(name: 'test1', email: 'q@a.com', password: 'qqqqqq', admin: true)
         @user.confirm
       end
+      @user[:admin] = false if params[:id] == 'guest'
+      @user[:admin] = true if params[:id] == 'admin'
       sign_in @user
       @current_user = @user
     end

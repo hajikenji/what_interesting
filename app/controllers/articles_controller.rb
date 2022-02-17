@@ -3,17 +3,20 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    # @articles = Article.order_fav if params[:value] == "today"
-    # @articles = Article.where_totay_articles if params[:value] == "today"
-    
-    # #記事内いいね順で降順
-    # @articles = Article.order_fav
-    if params[:value] == 'all_time'
+
+    if params[:value] == 'all_time_ranking'
+      # 記事内いいね順で降順
       @articles = Article.order_fav
+    elsif params[:value] == '24hour_time_ranking'
+      # 
+      @articles = Article.where_today_articles
+      # 記事内いいね順で降順
+      @articles = @articles.order_fav
     else
-      @articles = Article.where_totay_articles
+      @articles = Article.where_today_articles
       @articles = @articles.order_fav
     end
+
     
   end
 

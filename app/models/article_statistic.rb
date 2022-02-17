@@ -10,6 +10,7 @@ class ArticleStatistic < ApplicationRecord
     url = 'https://news.yahoo.co.jp/topics/top-picks'
 
     doc = Nokogiri::HTML(URI.open(url))
+    binding.irb
 
     # 各ニュースのURL取得
     root_list = []
@@ -25,12 +26,12 @@ class ArticleStatistic < ApplicationRecord
     check_unique_url = ['']
 
     # 各ニュースごと、1記事ごとにタイトルやコメント数を情報収集していく
-    root_list.each do |url|
+    root_list.each do |the_url|
       sleep(2)
 
       #記事削除の404などエラーが起きたら1記事飛ばす
       begin
-        doc = Nokogiri::HTML(URI.open(url))
+        doc = Nokogiri::HTML(URI.open(the_url))
       rescue StandardError => e
         p e
         next

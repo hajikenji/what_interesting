@@ -7,13 +7,13 @@
                password: password)
 end
 
-5.times do |_n|
-  title = 'aaaa' + rand(1..10).to_s
-  link = Faker::Internet.email
-  Article.create!(title: title,
-                  link: link
-                )
-end
+# 5.times do |_n|
+#   title = 'aaaa' + rand(1..10).to_s
+#   link = Faker::Internet.email
+#   Article.create!(title: title,
+#                   link: link
+#                 )
+# end
 
 num = 0
 5.times do |_n|

@@ -7,7 +7,7 @@ class ArticleStatistic < ApplicationRecord
     # 大元のサイト取得
 
     sleep(2)
-    url = 'https://news.yahoo.co.jp/topics/domestic'
+    url = 'https://news.yahoo.co.jp/topics/top-picks'
 
     doc = Nokogiri::HTML(URI.open(url))
 

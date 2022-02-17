@@ -32,6 +32,9 @@ gem 'rails-i18n', '~> 6.0'
 gem 'rails_admin', ['>= 3.0.0.rc', '< 4']
 gem 'cancancan'
 
+gem 'dotenv-rails' # 開発環境で環境変数を操作するのに必要
+gem 'unicorn' # アプリケーションサーバのunicorn
+
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -50,6 +53,15 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'launchy'
+
+  #AWS系
+  gem 'capistrano', '3.16.0' # capistranoのツール一式
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano3-unicorn'
+  gem 'ed25519'
+  gem 'bcrypt_pbkdf'
 end
 
 group :development do

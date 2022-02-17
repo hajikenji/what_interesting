@@ -1,16 +1,14 @@
 class ArticleStatistic < ApplicationRecord
   belongs_to :article
 
-  def self.scraping_yahoo
+  def self.scraping_yahoo(url)
     require 'nokogiri'
     require 'open-uri'
     # 大元のサイト取得
 
     sleep(2)
-    url = 'https://news.yahoo.co.jp/topics/top-picks'
 
     doc = Nokogiri::HTML(URI.open(url))
-    binding.irb
 
     # 各ニュースのURL取得
     root_list = []

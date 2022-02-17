@@ -35,7 +35,9 @@ class ArticlesController < ApplicationController
 
   # POST /articles or /articles.json
   def create
-    p ArticleStatistic.scraping_yahoo
+    if params[:name].present?
+      p ArticleStatistic.scraping_yahoo("https://news.yahoo.co.jp/topics/top-picks?page=#{params[:name].to_i}")
+    end
     @article = Article.new(article_params)
 
     # respond_to do |format|

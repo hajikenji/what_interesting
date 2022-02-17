@@ -17,9 +17,9 @@
   <% else %>
     <%= link_to "新規登録", new_user_registration_path %>
     <%= link_to "ログイン", new_user_session_path %>
+    <%= link_to "ゲストユーザー", my_user_path("guest") %>
+    <%= link_to "ゲスト管理者", my_user_path("admin") %>
   <% end %>
-  <%= link_to "ゲストユーザー", my_user_path("guest") %>
-  <%= link_to "ゲスト管理者", my_user_path("admin") %>
 
 
   <% if notice %>

@@ -40,6 +40,8 @@ class ArticleStatistic < ApplicationRecord
       comments = doc.xpath('//*[@id="uamods-pickup"]/div[2]/a/span[2]').text.to_i
       url = doc.xpath('//*[@id="uamods-pickup"]/div[2]/div/p/a')[0]['href']
 
+ 
+
       ## エラーが起きたら1記事飛ばす処理の集合
       # 記事削除の404などエラーが起きたら1記事飛ばす
       begin
@@ -61,12 +63,19 @@ class ArticleStatistic < ApplicationRecord
       title = doc.search('title').text
       p title
 
+      # created_at用に記事が入稿した時間を取得する。upsert_allは現時点全てupdateしてしまい入稿時間がわからなくなるため
+      time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.size
+      time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.slice(-5..time_created_article)
+      t = Time.new.to_s
+      time_created_article = Time.parse("#{t.slice(0..10)}#{time_created_article}")
+
       ## 記事内いいねがややこしい場所にあるため、膨大な情報から絞り込みしていき、最後scanで数字だけ取り出す
       # 記事詳細ページの中からscript関連の場所だけ抜き取り、配列の形で保存
       list_reaction = []
       doc.xpath('//script').each do |page|
         list_reaction << page
       end
+
 
       # 取りたい情報が配列の何番目にあるか
       num_reaction = list_reaction.find_index { |n| n.content.index('window.__PRELOADED_STATE__') }
@@ -76,15 +85,15 @@ class ArticleStatistic < ApplicationRecord
 
       # ヤフーのリアクションボタンの数字の抽出して合計値を算出
       sum_reaction = 0
-      list_reaction[num_reaction].content.slice(num_slice..num_slice + 60).scan(/\d+/).each do |t|
-        sum_reaction += t.to_i
+      list_reaction[num_reaction].content.slice(num_slice..num_slice + 60).scan(/\d+/).each do |reaction|
+        sum_reaction += reaction.to_i
       end
 
       # upsert_allの形式に合わせ、[{},{}] の形式で各情報を入れていく。Timeのto_sは変換しないとエラーになるため
       time_zone = Time.now.to_s
-      list_article_update << {title: title, link: url, created_at: time_zone,
+      list_article_update << {title: title, link: url, created_at: time_created_article,
                                updated_at: time_zone }
-      list_article_statictics_update << { comment: comments, fav: sum_reaction, created_at: time_zone,
+      list_article_statictics_update << { comment: comments, fav: sum_reaction, created_at: time_created_article,
                                           updated_at: time_zone }
 
 

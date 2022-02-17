@@ -3,8 +3,18 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    #記事内いいね順で降順
-    @articles = Article.joins(:article_statistic).all.order(fav: "DESC")
+    # @articles = Article.order_fav if params[:value] == "today"
+    # @articles = Article.where_totay_articles if params[:value] == "today"
+    
+    # #記事内いいね順で降順
+    # @articles = Article.order_fav
+    if params[:value] == 'all_time'
+      @articles = Article.order_fav
+    else
+      @articles = Article.where_totay_articles
+      @articles = @articles.order_fav
+    end
+    
   end
 
   # GET /articles/1 or /articles/1.json

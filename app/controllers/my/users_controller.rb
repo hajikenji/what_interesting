@@ -10,8 +10,10 @@ class My::UsersController < ApplicationController
         @user = User.find_by(email: 'q@a.com')
       else
         @user = User.create(name: 'test1', email: 'q@a.com', password: 'qqqqqq', admin: true)
-        @user.confirm
+        # メール認証を一時凍結したため
+        # @user.confirm
       end
+      # ゲストでもユーザーか管理者かで機能切り分け
       @user[:admin] = false if params[:id] == 'guest'
       @user[:admin] = true if params[:id] == 'admin'
       sign_in @user

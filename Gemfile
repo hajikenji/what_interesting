@@ -34,6 +34,7 @@ gem 'cancancan'
 
 gem 'dotenv-rails' # 開発環境で環境変数を操作するのに必要
 gem 'unicorn' # アプリケーションサーバのunicorn
+gem 'faker'
 
 
 # Use Active Storage variant
@@ -51,7 +52,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'launchy'
 
   #AWS系

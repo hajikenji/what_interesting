@@ -1,13 +1,12 @@
 class ArticleStatistic < ApplicationRecord
   belongs_to :article
 
-  def self.scraping_yahoo
+  def self.scraping_yahoo(url)
     require 'nokogiri'
     require 'open-uri'
     # 大元のサイト取得
 
     sleep(2)
-    url = 'https://news.yahoo.co.jp/topics/top-picks'
 
     doc = Nokogiri::HTML(URI.open(url))
 
@@ -25,12 +24,12 @@ class ArticleStatistic < ApplicationRecord
     check_unique_url = ['']
 
     # 各ニュースごと、1記事ごとにタイトルやコメント数を情報収集していく
-    root_list.each do |url|
+    root_list.each do |the_url|
       sleep(2)
 
       #記事削除の404などエラーが起きたら1記事飛ばす
       begin
-        doc = Nokogiri::HTML(URI.open(url))
+        doc = Nokogiri::HTML(URI.open(the_url))
       rescue StandardError => e
         p e
         next
@@ -64,10 +63,13 @@ class ArticleStatistic < ApplicationRecord
       p title
 
       # created_at用に記事が入稿した時間を取得する。upsert_allは現時点全てupdateしてしまい入稿時間がわからなくなるため
-      time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.size
-      time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.slice(-5..time_created_article)
-      t = Time.new.to_s
-      time_created_article = Time.parse("#{t.slice(0..10)}#{time_created_article}")
+      time = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text
+      time_created_article = Time.parse(time)
+      # time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.size
+      # time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.slice(-5..time_created_article)
+      # t = Time.new.to_s
+      # time_created_article = Time.parse("#{t.slice(0..10)}#{time_created_article}")
+
 
       ## 記事内いいねがややこしい場所にあるため、膨大な情報から絞り込みしていき、最後scanで数字だけ取り出す
       # 記事詳細ページの中からscript関連の場所だけ抜き取り、配列の形で保存

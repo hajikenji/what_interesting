@@ -3,16 +3,22 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    # @articles = Article.order_fav if params[:value] == "today"
-    # @articles = Article.where_totay_articles if params[:value] == "today"
-    
-    # #記事内いいね順で降順
-    # @articles = Article.order_fav
-    if params[:value] == 'all_time'
+
+    if params[:value] == 'all_time_ranking'
+      # 記事内いいね順で降順
       @articles = Article.order_fav
-    else
-      @articles = Article.where_totay_articles
+      @display_the_title = '総合ランキング'
+    elsif params[:value] == '1week_time_ranking'
+      # 記事作成日時が1週間以内のもので絞り込み
+      @articles = Article.where_1week_articles
+      # 記事内いいね順で降順
       @articles = @articles.order_fav
+      @display_the_title = '1週間のランキング'
+    else
+      # 記事作成日時が24時間以内のもので絞り込み
+      @articles = Article.where_24hour_articles
+      @articles = @articles.order_fav
+      @display_the_title = '24時間ランキング'
     end
     
   end
@@ -32,7 +38,9 @@ class ArticlesController < ApplicationController
 
   # POST /articles or /articles.json
   def create
-    p ArticleStatistic.scraping_yahoo
+    if params[:name].present?
+      p ArticleStatistic.scraping_yahoo("https://news.yahoo.co.jp/topics/top-picks?page=#{params[:name].to_i}")
+    end
     @article = Article.new(article_params)
 
     # respond_to do |format|

@@ -63,10 +63,13 @@ class ArticleStatistic < ApplicationRecord
       p title
 
       # created_at用に記事が入稿した時間を取得する。upsert_allは現時点全てupdateしてしまい入稿時間がわからなくなるため
-      time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.size
-      time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.slice(-5..time_created_article)
-      t = Time.new.to_s
-      time_created_article = Time.parse("#{t.slice(0..10)}#{time_created_article}")
+      time = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text
+      time_created_article = Time.parse(time)
+      # time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.size
+      # time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.slice(-5..time_created_article)
+      # t = Time.new.to_s
+      # time_created_article = Time.parse("#{t.slice(0..10)}#{time_created_article}")
+
 
       ## 記事内いいねがややこしい場所にあるため、膨大な情報から絞り込みしていき、最後scanで数字だけ取り出す
       # 記事詳細ページの中からscript関連の場所だけ抜き取り、配列の形で保存

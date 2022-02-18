@@ -1,12 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<% if params[:value] != "all_time_ranking" %>
-  <h1>24時間ランキング</h1>
-  <%= link_to '総合ランキング', articles_path(value: "all_time_ranking") %>
-<% elsif params[:value] != "24hour_time_ranking" %>
-  <h1>総合ランキング</h1>
+
+  <h1><%= @display_the_title %></h1>
   <%= link_to '24時間ランキング', articles_path(value: "24hour_time_ranking") %>
-<% end %>
+  <%= link_to '1週間のランキング', articles_path(value: "1week_time_ranking") %>
+  <%= link_to '総合ランキング', articles_path(value: "all_time_ranking") %>
+
 <table>
   <thead>
     <tr>

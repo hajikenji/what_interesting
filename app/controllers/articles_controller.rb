@@ -7,16 +7,19 @@ class ArticlesController < ApplicationController
     if params[:value] == 'all_time_ranking'
       # 記事内いいね順で降順
       @articles = Article.order_fav
-    elsif params[:value] == '24hour_time_ranking'
-      # 
-      @articles = Article.where_today_articles
+      @display_the_title = '総合ランキング'
+    elsif params[:value] == '1week_time_ranking'
+      # 記事作成日時が1週間以内のもので絞り込み
+      @articles = Article.where_1week_articles
       # 記事内いいね順で降順
       @articles = @articles.order_fav
+      @display_the_title = '1週間のランキング'
     else
-      @articles = Article.where_today_articles
+      # 記事作成日時が24時間以内のもので絞り込み
+      @articles = Article.where_24hour_articles
       @articles = @articles.order_fav
+      @display_the_title = '24時間ランキング'
     end
-
     
   end
 

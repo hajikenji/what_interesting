@@ -1,33 +1,25 @@
-<p id="notice"><%= notice %></p>
-
-
-  <h1><%= @display_the_title %></h1>
+<div class = "top_part">
+  <p id="notice"><%= notice %></p>
+  <h4>最近、何が話題になった？</h4>
+  <h5><%= @display_the_title %></h5>
   <%= link_to '24時間ランキング', articles_path(value: "24hour_time_ranking") %>
   <%= link_to '1週間のランキング', articles_path(value: "1week_time_ranking") %>
   <%= link_to '総合ランキング', articles_path(value: "all_time_ranking") %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Icon</th>
-      <th>value</th>
-      <th>Ranking</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @articles.each do |article| %>
-      <tr>
-        <td><%= link_to article.title, article.link %></td>
-        <td><%= article.icon %></td>
-        <td><%= article.article_statistic.fav %></td>
-        <td><%= article.ranking %></td>
-        <td><%= link_to 'コメント一覧', new_article_comment_path(article) %></td>
-      </tr>
+<div class = "article_list border border-secondary rounded" >
+<% @articles.each.with_index(1) do |article, ranking_number| %>
+    <div class = "article_and_comment">
+      <ul class ="each_article shadow p-3 bg-white rounded border-top">
+        <li class = "one_article"><%= link_to article.title, article.link, target: :_blank, rel: "noopener noreferrer"%></li>
+        <li class="text-info" >記事内いいね数:<%= article.article_statistic.fav %></li>
+        <li class = "one_comment" ><%= link_to 'コメント一覧', new_article_comment_path(article) %></li>
+        <li class = "article_source text-black-50">Yahoo!ニュース</li>
+      </ul>
+      <ul class = "ranking_list">
+        <li class = "the_number"><%= ranking_number %>位</li>
+      </ul>
+    </div>
     <% end %>
-  </tbody>
-</table>
-
+</div>
 <br>

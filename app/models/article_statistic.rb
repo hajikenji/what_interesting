@@ -38,6 +38,11 @@ class ArticleStatistic < ApplicationRecord
       # コメントとurl収集、この後DBにバルクインサートする
       comments = doc.xpath('//*[@id="uamods-pickup"]/div[2]/a/span[2]').text.to_i
       url = doc.xpath('//*[@id="uamods-pickup"]/div[2]/div/p/a')[0]['href']
+      # タイトル収集、この後DBにバルクインサートする
+      title = doc.search('title').text
+      #  - Yahoo!ニュース の文字を取り除く
+      title = title.slice(0..title.size - 14)
+      p title
 
  
 
@@ -57,10 +62,6 @@ class ArticleStatistic < ApplicationRecord
         p e
         next
       end
-
-      # タイトル収集、この後DBにバルクインサートする
-      title = doc.search('title').text
-      p title
 
       # created_at用に記事が入稿した時間を取得する。upsert_allは現時点全てupdateしてしまい入稿時間がわからなくなるため
       time = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text

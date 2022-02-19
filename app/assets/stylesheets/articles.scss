@@ -1,3 +1,85 @@
 // Place all the styles related to the articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.top_part {
+  text-align: center;
+}
+
+#article_table {
+  // border-collapse: separate;
+  border-spacing: 10px;
+  border: solid;
+}
+
+.each_article {
+  width: 33rem;
+  height: 6rem;
+  padding: 1rem;
+  list-style-type: none;
+  margin-bottom: 2rem;
+  // border: solid;
+  // color: aqua;
+  // border-color: aqua;
+  // border-top: solid;
+  // border-left: solid;
+  // border-right: solid;
+  // margin-bottom: 2rem;
+}
+
+.one_article {
+  // border: solid;
+}
+
+.each_comment {
+  // border: solid;
+  color: aqua;
+  // border-color: aqua;
+  // border-left: solid 0.1px;
+  // border-right: solid;
+  // margin-bottom: 2rem;
+}
+
+.one_comment {
+  // border: solid;
+  // color: aqua;
+  // border-color: aqua;
+  // border-left: solid 0.1px;
+  // border-right: solid;
+  // margin-bottom: 2rem;
+}
+
+// .article_and_comment {
+//   border: solid;
+//   color: aqua;
+// }
+.article_list {
+  // border: solid;
+  margin: auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 40rem;
+}
+
+.article_and_comment {
+  display: flex;
+  margin: 0;
+  width: 40rem;
+}
+
+.ranking_list {
+  display: flex;
+  list-style-type: none;
+  margin-bottom: 0;
+}
+
+.the_number {
+  text-align: end;
+  padding-top: 2.5rem;
+}
+
+.article_source {
+  text-align: end;
+}
+
+@import "bootstrap";

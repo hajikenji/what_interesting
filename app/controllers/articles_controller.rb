@@ -4,23 +4,41 @@ class ArticlesController < ApplicationController
   # GET /articles or /articles.json
   def index
 
-    if params[:value] == 'all_time_ranking'
+    if params[:time] == "3"
       # 記事内いいね順で降順
-      @articles = Article.order_fav
       @display_the_title = '総合ランキング'
-    elsif params[:value] == '1week_time_ranking'
+    elsif params[:time] == "2"
       # 記事作成日時が1週間以内のもので絞り込み
       @articles = Article.where_1week_articles
       # 記事内いいね順で降順
-      @articles = @articles.order_fav
       @display_the_title = '1週間のランキング'
     else
       # 記事作成日時が24時間以内のもので絞り込み
       @articles = Article.where_24hour_articles
-      @articles = @articles.order_fav
       @display_the_title = '24時間ランキング'
     end
-    
+
+    if params[:sort_algorithm] == '3'
+      # 記事内いいね順で降順
+      @articles = @articles.order_comment
+    elsif params[:sort_algorithm] == '2'
+      # 記事内いいね順で降順
+      @articles = @articles.order_fav
+    else
+      # 記事内favとcomment数を合算して1記事ごとに反響の総数を計算している
+      @articles.each do |article|
+        num = article.article_statistic.fav + article.article_statistic.comment.to_i
+        article[:ranking] = num
+      end
+
+      # 記事作成日時が24時間以内のもので絞り込み
+      @articles = @articles.sort_by { |x| x[:ranking] }.reverse
+    end
+
+    @articles.each do |article|
+      num = article.article_statistic.fav + article.article_statistic.comment.to_i
+      article[:ranking] = num
+    end
   end
 
   # GET /articles/1 or /articles/1.json

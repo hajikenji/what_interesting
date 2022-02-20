@@ -3,6 +3,7 @@ class Article < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   validates :title, presence: true
+  validates :link, presence: true
 
   scope :order_fav, -> { eager_load(:article_statistic).all.order(fav: "DESC") }
   scope :where_24hour_articles, -> { where(created_at: Time.now.yesterday..Time.now) }

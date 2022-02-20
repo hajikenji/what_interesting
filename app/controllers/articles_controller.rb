@@ -41,7 +41,8 @@ class ArticlesController < ApplicationController
     if params[:name].present?
       p ArticleStatistic.scraping_yahoo("https://news.yahoo.co.jp/topics/top-picks?page=#{params[:name].to_i}")
     end
-    @article = Article.new(article_params)
+    # @article = Article.new(article_params)
+    redirect_to articles_path
 
     # respond_to do |format|
     #   if @article.save

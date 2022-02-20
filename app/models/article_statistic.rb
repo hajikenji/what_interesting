@@ -35,20 +35,19 @@ class ArticleStatistic < ApplicationRecord
         next
       end
 
-      # コメントとurl収集、この後DBにバルクインサートする
-      comments = doc.xpath('//*[@id="uamods-pickup"]/div[2]/a/span[2]').text.to_i
-      url = doc.xpath('//*[@id="uamods-pickup"]/div[2]/div/p/a')[0]['href']
-      # タイトル収集、この後DBにバルクインサートする
-      title = doc.search('title').text
-      #  - Yahoo!ニュース の文字を取り除く
-      title = title.slice(0..title.size - 14)
-      p title
-
  
 
       ## エラーが起きたら1記事飛ばす処理の集合
       # 記事削除の404などエラーが起きたら1記事飛ばす
       begin
+        # コメントとurl収集、この後DBにバルクインサートする
+        comments = doc.xpath('//*[@id="uamods-pickup"]/div[2]/a/span[2]').text.to_i
+        url = doc.xpath('//*[@id="uamods-pickup"]/div[2]/div/p/a')[0]['href']
+        # タイトル収集、この後DBにバルクインサートする
+        title = doc.search('title').text
+        #  - Yahoo!ニュース の文字を取り除く
+        title = title.slice(0..title.size - 14)
+        p title
         sleep(2)
         doc = Nokogiri::HTML(URI.open(url))
         # タイトルがないか || コメントがないか || コメントが0なら飛ばす。

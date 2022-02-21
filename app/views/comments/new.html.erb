@@ -1,37 +1,45 @@
-<h2><%= link_to Article.find(params[:article_id]).title, Article.find(params[:article_id]).link %></h2>
+<div class = "article">
+  <div>
+    <ul class = "article_info shadow-sm p-3 bg-white rounded border-top" >
+      <h3><%= link_to @article.title, @article.link %></h3>
+      <li class="comment_info text-info" >
+        記事内いいね数:<%= @article.article_statistic.fav %>
+        記事内コメント数:<%= @article.article_statistic.comment %>
+        合算:<%= params[:ranking] %>
+      </li>
+      <li class = "article_source text-black-50">Yahoo!ニュース</li>
+    </ul>
+  </div>
+</div>
+
+<div class = "post_field" >
+<h3>みんなのコメント</h3>
 <% unless user_signed_in? %>
   <p>※コメント投稿にはログインが必要です</p>
 <% else %>
   <%= render 'form', comment: @comment %>
 <% end %>
 <br>
-<h3>コメント欄</h3>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th class="image_th">icon</th>
-      <th>user_name</th>
-      <th>comment</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @comments.each do |comment| %>
-      <tr>
-        <td class="image_td"><%= image_tag "default.png", class: "default" %></td>
-        <td><%= comment.user.name %></td>
-        <td><%= comment.content %></td>
-        <td><%#= link_to 'Show', comment %></td>
-        <% if user_signed_in? && current_user.id == comment.user_id %>
-          <td><%= link_to 'Edit', edit_article_comment_path(params[:article_id], comment) %></td>
-          <td><%= link_to 'Destroy', article_comment_path(params[:article_id], comment), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
+<div class = "comment_list border border-secondary rounded" >
+<% @comments.reverse_each do |comment| %>
+    <div class = "comment_div">
+      <ul class ="each_comment shadow p-3 bg-white rounded border-top">
+        <li class = "comment_info">
+          <%= image_tag "default.png", class: "default" %>
+          <%= comment.user.name %>
+          <%= comment.content %>
+          <% if user_signed_in? && current_user.id == comment.user_id %>
+            <td><%#= link_to 'Edit', edit_article_comment_path(params[:article_id], comment) %></td>
+            <td><%= link_to '×', article_comment_path(params[:article_id], comment), method: :delete, data: { confirm: '削除しますか?' } %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
     <% end %>
-  </tbody>
-</table>
+</div>
 
 <br>
 

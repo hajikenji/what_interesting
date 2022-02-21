@@ -12,14 +12,17 @@ require 'rails_helper'
 RSpec.describe 'サイト全体テスト', type: :system do
   describe '閲覧機能' do
     before do
+      create(:article_statistic)
+      create(:user)
       visit articles_path
     end
     context 'サイト訪問' do
       it '記事が見れる' do
+
         expect(page).to have_content Article.first.title
       end
       it 'コメントが見れる' do
-        click_link 'コメント一覧', href: new_article_comment_path(Article.first.id)
+        click_link 'コメント一覧'
         @user = create(:user)
         @article = Article.first
         @comment = @article.comments.build({ content: 'aaaaa' })
@@ -30,7 +33,7 @@ RSpec.describe 'サイト全体テスト', type: :system do
         expect(page).to have_content @comment.content
       end
       it '非ログイン時コメント投稿はできない、画面上操作' do
-        click_link 'コメント一覧', href: new_article_comment_path(Article.first.id)
+        click_link 'コメント一覧'
         expect(page).to have_content "※コメント投稿にはログインが必要です"
       end
       it '非ログイン時コメント投稿はできない、単純にcreateを弾けるか' do
@@ -44,7 +47,7 @@ RSpec.describe 'サイト全体テスト', type: :system do
       it '記事の各項目が漏れなく記載されている' do
         expect(page).to have_content Article.first.title
         expect(page).to have_content Article.first.article_statistic.fav
-        expect(page).to have_content Article.first.link
+        expect(page).to have_content Article.first.article_statistic.comment
       end
     end
   end

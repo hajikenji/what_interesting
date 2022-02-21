@@ -1,31 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Internal Server Error (500)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-    .error {
-      padding-top: 16%
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>We're sorry, but something went wrong (500)</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+
+
+
+  <style type="text/css" media="screen">
+    body {
+      background-color: #f1f1f1;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .container {
+      margin-top: 10%;
+    }
+
+    a {
+      color: #4183c4;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      font-size: 60px;
+      font-weight: 100;
+      margin: 0px 0 50px 0;
+      text-shadow: 0 1px 0 #fff;
     }
 
     p {
-      text-align: center;
-    }
-
-    img {
-      display: block;
-      margin: 0 auto;
+      color: rgba(0, 0, 0, 0.5);
+      margin: 20px 0;
+      line-height: 1.6;
     }
   </style>
+
 </head>
 
 <body>
-  <!-- This file lives in public/500.html -->
-  <div class="error">
-    <img src="what_interesting/app/assets/images/500.png">
-    <p>Internal Server Error</p>
+
+  <div class="container text-center">
+
+    <h1>500</h1>
+    <p><strong>We're sorry, but something went wrong</strong></p>
+
+    <p>
+      If you are the application owner check the logs for more information.
+    </p>
   </div>
+
 </body>
 
 </html>

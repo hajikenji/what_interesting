@@ -8,16 +8,23 @@
 </div>
 <%= form_with(url: articles_path, local: true, method: :get) do |form| %>
 <div>
-<div class="field">
+<table class = "sort_table">
+<th>
+  <div class="field">
     <%= form.label :time %>
-    <%= form.select :time, { '24時間ランキング': 1, '1週間のランキング': 2, '総合ランキング': 3}, { include_blank: '選択', selected: 1 } %>
+    <%= form.select :time, { '24時間ランキング': 1, '1週間のランキング': 2, '総合ランキング': 3}, { include_blank: '選択', selected: @time } %>
 </div>
-<div class="field">
+</th>
+<th>
+  <div class="field">
     <%= form.label :sort_algorithm %>
-    <%= form.select :sort_algorithm, { '総合': 1, 'いいね': 2, 'コメント': 3} , { include_blank: '選択', selected: 1 }%>
+    <%= form.select :sort_algorithm, { '総合': 1, 'いいね': 2, 'コメント': 3} , { include_blank: '選択', selected: @sort_algorithm }%>
 </div>
-<%= form.submit class: "btn btn-success" %>
-<br>
+</th>
+<th>
+  <%= form.submit class: "sort_btn btn btn-outline-primary btn-sm" %>
+</th>
+</table>
 <br>
 
 <% end %>
@@ -27,12 +34,12 @@
     <div class = "article_and_comment">
       <ul class ="each_article shadow p-3 bg-white rounded border-top">
         <li class = "one_article"><%= link_to article.title, article.link, target: :_blank, rel: "noopener noreferrer"%></li>
-        <li class="text-info" >
+        <li class="article_info text-info" >
           記事内いいね数:<%= article.article_statistic.fav %>
           記事内コメント数:<%= article.article_statistic.comment %>
-          記事内コメント数:<%= article.ranking %>
+          合算:<%= article.ranking %>
         </li>
-        <li class = "one_comment" ><%= link_to 'コメント一覧', new_article_comment_path(article) %></li>
+        <li class = "one_comment" ><%= link_to 'コメント一覧', new_article_comment_path(article, ranking: article.ranking) %></li>
         <li class = "article_source text-black-50">Yahoo!ニュース</li>
       </ul>
       <ul class = "ranking_list">

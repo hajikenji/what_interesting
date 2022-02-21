@@ -4,4 +4,74 @@
 .image_td {
   width: 30%;
 }
+
+.article {
+  margin: auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 40rem;
+}
+
+.post_comment {
+  display: flex;
+  justify-content: center;
+}
+
+.post_field {
+  // display: flex;
+  // width: 90%;
+  // margin: auto;
+  text-align: center;
+}
+
+.actions {
+  margin-left: 0.7rem;
+}
+
+.table_frame {
+  margin: auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 33rem;
+}
+
+.article_info {
+  list-style-type: none;
+  display: block;
+}
+
+.article_source {
+  text-align: end;
+}
+
+#comment_table {
+  margin: auto;
+}
+
+.comment_list {
+  margin: auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 30rem;
+}
+
+.comment_div {
+  display: flex;
+  margin: 0;
+  width: 40rem;
+}
+
+.each_comment {
+  width: 22rem;
+  height: 6rem;
+  list-style-type: none;
+  margin-bottom: 1.5rem;
+}
+
+// .comment_info {
+// }
+
+// .comment_list tr {
+// }
+
 @import "bootstrap";

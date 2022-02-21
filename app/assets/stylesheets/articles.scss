@@ -34,17 +34,8 @@
   // margin-bottom: 2rem;
 }
 
-// .one_article {
-//   // border: solid;
-// }
-
-.each_comment {
-  // border: solid;
-  color: aqua;
-  // border-color: aqua;
-  // border-left: solid 0.1px;
-  // border-right: solid;
-  // margin-bottom: 2rem;
+.one_article {
+  font-size: 1.1rem;
 }
 
 .one_comment {
@@ -82,10 +73,11 @@
 
 .article_source {
   text-align: end;
+  font-size: 0.9rem;
 }
 
-.text-info {
-  font-size: 0.9rem;
+.article_info {
+  font-size: 0.95rem;
   padding-top: 0.5rem;
 }
 

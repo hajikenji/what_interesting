@@ -14,11 +14,15 @@
 
 .post_comment {
   display: flex;
+  justify-content: center;
 }
 
-// .post_field {
-//   display: flex;
-// }
+.post_field {
+  // display: flex;
+  // width: 90%;
+  // margin: auto;
+  text-align: center;
+}
 
 .actions {
   margin-left: 0.7rem;
@@ -31,13 +35,9 @@
   width: 33rem;
 }
 
-.article_and_comment {
+.article_info {
   list-style-type: none;
   display: block;
-}
-
-.text-info {
-  font-size: 1.05rem;
 }
 
 .article_source {
@@ -50,7 +50,26 @@
 
 .comment_list {
   margin: auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 30rem;
 }
+
+.comment_div {
+  display: flex;
+  margin: 0;
+  width: 40rem;
+}
+
+.each_comment {
+  width: 22rem;
+  height: 6rem;
+  list-style-type: none;
+  margin-bottom: 1.5rem;
+}
+
+// .comment_info {
+// }
 
 // .comment_list tr {
 // }

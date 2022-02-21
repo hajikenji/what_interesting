@@ -12,7 +12,11 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new
+    if Comment.find_by(user_id: current_user.id, article_id: params[:article_id]).present?
+      @comment = Comment.find_by(user_id: current_user.id, article_id: params[:article_id])
+    else
+      @comment = Comment.new
+    end
     @comments = Comment.where(article_id: params[:article_id])
 
     @article = Article.find(params[:article_id])
@@ -27,6 +31,7 @@ class CommentsController < ApplicationController
   def create
     # new画面でindex表示させるためのall
     @comments = Comment.where(article_id: params[:article_id])
+    @article = Article.find(params[:article_id])
 
     # redirect_to new_article_comment_path(params[:article_id]) unless user_signed_in?
     # ログインしてないと投稿を止める

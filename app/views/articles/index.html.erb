@@ -34,10 +34,10 @@
     <div class = "article_and_comment">
       <ul class ="each_article shadow p-3 bg-white rounded border-top">
         <li class = "one_article"><%= link_to article.title, article.link, target: :_blank, rel: "noopener noreferrer"%></li>
-        <li class="text-info" >
+        <li class="article_info text-info" >
           記事内いいね数:<%= article.article_statistic.fav %>
           記事内コメント数:<%= article.article_statistic.comment %>
-          記事内コメント数:<%= article.ranking %>
+          合算:<%= article.ranking %>
         </li>
         <li class = "one_comment" ><%= link_to 'コメント一覧', new_article_comment_path(article, ranking: article.ranking) %></li>
         <li class = "article_source text-black-50">Yahoo!ニュース</li>

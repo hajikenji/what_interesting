@@ -4,9 +4,7 @@ RSpec.describe 'userテスト', type: :system do
   describe 'user' do
     before do
       visit articles_path
-      5.times do
-        create(:article_statistic)
-      end
+      create(:article_statistic)
     end
     context 'ログイン関連' do
       # 新規登録はmodelテストでやっているので、単純に通過するかだけをテストする
@@ -52,7 +50,7 @@ RSpec.describe 'userテスト', type: :system do
         click_on 'commit'
       end
       it 'コメントできる' do
-        click_link nil, href: new_article_comment_path(Article.first.id)
+        click_link 'コメント一覧'
         fill_in 'comment[content]', with: 'aaaaa'
         click_on 'commit'
         visit current_path
@@ -86,7 +84,7 @@ RSpec.describe 'userテスト', type: :system do
         click_on 'commit'
       end
       it '他人のをedit,destroyできない' do
-          click_link nil, href: new_article_comment_path(Article.first.id)
+          click_link 'コメント一覧'
           @user = create(:user)
           @article = Article.first
           @comment = @article.comments.build({ content: 'aaaaa' })
@@ -97,14 +95,13 @@ RSpec.describe 'userテスト', type: :system do
           expect(page).not_to have_link nil, href: article_comment_path(@article, @comment)
         end
       it '自分のはedit,destroyできる' do
-          click_link nil, href: new_article_comment_path(Article.first.id)
+          click_link 'コメント一覧'
           fill_in 'comment[content]', with: 'aaaaa'
           click_on 'commit'
           visit current_path
           @article = Article.first.id
-          expect(page).to have_link nil, href: edit_article_comment_path(@article, @user.comments[0][:id])
-          expect(page).to have_link nil, href: article_comment_path(@article, @user.comments[0][:id])
-          click_link nil, href: edit_article_comment_path(@article,  @user.comments[0][:id])
+          expect(page).to have_button '更新する'
+          expect(page).to have_link '×'
           fill_in 'comment[content]', with: 'aaaaa1'
           click_on 'commit'
           expect(page).to have_content 'aaaaa1'

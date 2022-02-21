@@ -6,15 +6,22 @@
   text-align: center;
 }
 
-#article_table {
-  // border-collapse: separate;
-  border-spacing: 10px;
-  border: solid;
+.sort_table {
+  margin: auto;
+  height: 4rem;
+}
+.sort_table .field {
+  margin: auto;
+}
+
+.sort_btn {
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .each_article {
   width: 33rem;
-  height: 6rem;
+  height: 7rem;
   padding: 1rem;
   list-style-type: none;
   margin-bottom: 2rem;
@@ -40,14 +47,9 @@
   // margin-bottom: 2rem;
 }
 
-// .one_comment {
-//   // border: solid;
-//   // color: aqua;
-//   // border-color: aqua;
-//   // border-left: solid 0.1px;
-//   // border-right: solid;
-//   // margin-bottom: 2rem;
-// }
+.one_comment {
+  padding-top: 0.5rem;
+}
 
 // .article_and_comment {
 //   border: solid;
@@ -80,6 +82,11 @@
 
 .article_source {
   text-align: end;
+}
+
+.text-info {
+  font-size: 0.9rem;
+  padding-top: 0.5rem;
 }
 
 @import "bootstrap";

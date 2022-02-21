@@ -8,16 +8,23 @@
 </div>
 <%= form_with(url: articles_path, local: true, method: :get) do |form| %>
 <div>
-<div class="field">
+<table class = "sort_table">
+<th>
+  <div class="field">
     <%= form.label :time %>
-    <%= form.select :time, { '24時間ランキング': 1, '1週間のランキング': 2, '総合ランキング': 3}, { include_blank: '選択', selected: 1 } %>
+    <%= form.select :time, { '24時間ランキング': 1, '1週間のランキング': 2, '総合ランキング': 3}, { include_blank: '選択', selected: @time } %>
 </div>
-<div class="field">
+</th>
+<th>
+  <div class="field">
     <%= form.label :sort_algorithm %>
-    <%= form.select :sort_algorithm, { '総合': 1, 'いいね': 2, 'コメント': 3} , { include_blank: '選択', selected: 1 }%>
+    <%= form.select :sort_algorithm, { '総合': 1, 'いいね': 2, 'コメント': 3} , { include_blank: '選択', selected: @sort_algorithm }%>
 </div>
-<%= form.submit class: "btn btn-success" %>
-<br>
+</th>
+<th>
+  <%= form.submit class: "sort_btn btn btn-outline-primary btn-sm" %>
+</th>
+</table>
 <br>
 
 <% end %>

@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
 
     if params[:time] == "3"
       # 記事内いいね順で降順
+      @articles = Article.all
       @display_the_title = '総合ランキング'
     elsif params[:time] == "2"
       # 記事作成日時が1週間以内のもので絞り込み
@@ -27,7 +28,7 @@ class ArticlesController < ApplicationController
     else
       # 記事内favとcomment数を合算して1記事ごとに反響の総数を計算している
       @articles.each do |article|
-        num = article.article_statistic.fav + article.article_statistic.comment.to_i
+        num = article.article_statistic.fav + article.article_statistic.comment
         article[:ranking] = num
       end
 
@@ -36,9 +37,15 @@ class ArticlesController < ApplicationController
     end
 
     @articles.each do |article|
-      num = article.article_statistic.fav + article.article_statistic.comment.to_i
+      num = article.article_statistic.fav + article.article_statistic.comment
       article[:ranking] = num
     end
+
+    @time = params[:time]
+    @sort_algorithm = params[:sort_algorithm]
+
+
+
   end
 
   # GET /articles/1 or /articles/1.json

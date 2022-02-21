@@ -17,7 +17,9 @@
 <% unless user_signed_in? %>
   <p>※コメント投稿にはログインが必要です</p>
 <% else %>
+<div class = "form_comment">
   <%= render 'form', comment: @comment %>
+</div>
 <% end %>
 <br>
 </div>
@@ -27,9 +29,11 @@
 <% @comments.reverse_each do |comment| %>
     <div class = "comment_div">
       <ul class ="each_comment shadow p-3 bg-white rounded border-top">
+        <li class = "user_name">
+          <%= comment.user.name %>
+        </li>
         <li class = "comment_info">
           <%= image_tag "default.png", class: "default" %>
-          <%= comment.user.name %>
           <%= comment.content %>
           <% if user_signed_in? && current_user.id == comment.user_id %>
             <td><%#= link_to 'Edit', edit_article_comment_path(params[:article_id], comment) %></td>

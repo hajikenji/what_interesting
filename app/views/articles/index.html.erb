@@ -1,10 +1,6 @@
 <div class = "top_part">
-  <p id="notice"><%= notice %></p>
   <h4>最近、何が話題になった？</h4>
   <h5><%= @display_the_title %></h5>
-  <%= link_to '24時間ランキング', articles_path(value: "24hour_time_ranking") %>
-  <%= link_to '1週間のランキング', articles_path(value: "1week_time_ranking") %>
-  <%= link_to '総合ランキング', articles_path(value: "all_time_ranking") %>
 </div>
 <%= form_with(url: articles_path, local: true, method: :get) do |form| %>
 <div>
@@ -40,7 +36,7 @@
           合算:<%= article.ranking %>
         </li>
         <li class = "one_comment" ><%= link_to 'コメント一覧', new_article_comment_path(article, ranking: article.ranking) %></li>
-        <li class = "article_source text-black-50">Yahoo!ニュース</li>
+        <li class = "article_source text-black-50"><%= article.created_at.strftime("%y年%-m月%-d日 %-H時") %>:Yahoo!ニュース</li>
       </ul>
       <ul class = "ranking_list">
         <li class = "the_number"><%= ranking_number %>位</li>

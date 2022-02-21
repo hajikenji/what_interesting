@@ -4,6 +4,7 @@ class ArticlesController < ApplicationController
   # GET /articles or /articles.json
   def index
 
+
     if params[:time] == "3"
       # 記事内いいね順で降順
       @articles = Article.all

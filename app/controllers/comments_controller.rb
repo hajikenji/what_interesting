@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    if Comment.find_by(user_id: current_user.id, article_id: params[:article_id]).present?
+    if current_user && Comment.find_by(user_id: current_user.id, article_id: params[:article_id]).present?
       @comment = Comment.find_by(user_id: current_user.id, article_id: params[:article_id])
     else
       @comment = Comment.new

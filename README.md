@@ -31,7 +31,7 @@ rails s
 * https://docs.google.com/spreadsheets/d/1MQkbYoGSneAQ9bGvPu4UAIiaNBwJDaikeDFLRe2j0AA/edit?usp=sharing
 
 ### ワイヤーフレームのリンク
-* https://drive.google.com/file/d/1tITMyCF8p5ovq3KrnJE2QtmIFJi2wEBe/view?usp=sharing
+* https://app.diagrams.net/#G1rseDRKKPh3J6HE10ha4ijQEEyRZKgbtN
 
 ### ER図
 ![スクリーンショット 2022-02-04 13 20 30](https://user-images.githubusercontent.com/92619325/152471194-92d046b1-13bd-4ca1-a63e-1128c7cae325.png)
@@ -39,5 +39,6 @@ rails s
 
 
 ### 画面遷移図
-![スクリーンショット 2022-02-04 1 06 31](https://user-images.githubusercontent.com/92619325/152381516-5fd399f1-8115-4a64-9e2f-ff96babaddc8.png)
+![スクリーンショット 2022-02-21 15 31 19](https://user-images.githubusercontent.com/92619325/154901542-c67dd234-a62b-4e13-abb1-aa8adbf0401b.png)
+
 

@@ -39,7 +39,7 @@
           記事内コメント数:<%= article.article_statistic.comment %>
           記事内コメント数:<%= article.ranking %>
         </li>
-        <li class = "one_comment" ><%= link_to 'コメント一覧', new_article_comment_path(article) %></li>
+        <li class = "one_comment" ><%= link_to 'コメント一覧', new_article_comment_path(article, ranking: article.ranking) %></li>
         <li class = "article_source text-black-50">Yahoo!ニュース</li>
       </ul>
       <ul class = "ranking_list">

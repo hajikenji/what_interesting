@@ -10,12 +10,14 @@
       </ul>
     </div>
   <% end %>
+<div class = "post_comment" >
   <div class="field">
-    <%= form.label :content %>
-    <%= form.text_field :content %>
+    <%= form.label "コメント" %>
+    <%= form.text_field :content, placeholder: "5~15文字" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "投稿する", class: "btn btn-outline-primary btn-sm" %>
   </div>
+</div>
 <% end %>

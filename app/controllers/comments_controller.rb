@@ -14,6 +14,8 @@ class CommentsController < ApplicationController
   def new
     @comment = Comment.new
     @comments = Comment.where(article_id: params[:article_id])
+
+    @article = Article.find(params[:article_id])
     
   end
 

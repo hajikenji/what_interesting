@@ -4,4 +4,55 @@
 .image_td {
   width: 30%;
 }
+
+.article {
+  margin: auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 40rem;
+}
+
+.post_comment {
+  display: flex;
+}
+
+// .post_field {
+//   display: flex;
+// }
+
+.actions {
+  margin-left: 0.7rem;
+}
+
+.table_frame {
+  margin: auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 33rem;
+}
+
+.article_and_comment {
+  list-style-type: none;
+  display: block;
+}
+
+.text-info {
+  font-size: 1.05rem;
+}
+
+.article_source {
+  text-align: end;
+}
+
+#comment_table {
+  margin: auto;
+}
+
+.comment_list {
+  margin: auto;
+}
+
+.comment_list tr {
+}
+
 @import "bootstrap";

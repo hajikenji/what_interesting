@@ -1,25 +1,42 @@
-<h2><%= link_to Article.find(params[:article_id]).title, Article.find(params[:article_id]).link %></h2>
+
+<div class = "article">
+  <div>
+    <ul class = "article_and_comment shadow-sm p-3 bg-white rounded border-top" >
+      <h3><%= link_to @article.title, @article.link %></h3>
+      <li class="text-info" >
+        記事内いいね数:<%= @article.article_statistic.fav %>
+        記事内コメント数:<%= @article.article_statistic.comment %>
+        合算:<%= params[:ranking] %>
+      </li>
+      <li class = "article_source text-black-50">Yahoo!ニュース</li>
+    </ul>
+  </div>
+</div>
+
+<div class = "post_field" >
 <% unless user_signed_in? %>
   <p>※コメント投稿にはログインが必要です</p>
 <% else %>
   <%= render 'form', comment: @comment %>
 <% end %>
 <br>
-<h3>コメント欄</h3>
+<h3>みんなのコメント</h3>
+</div>
 
-<table>
+<div class = "table_frame border border-secondary rounded">
+<table id = "comment_table", class = "shadow p-3 mb-5 bg-white rounded">
   <thead>
     <tr>
-      <th class="image_th">icon</th>
-      <th>user_name</th>
-      <th>comment</th>
+      <th colspan="3"></th>
+      <th colspan="3"></th>
+      <th colspan="3"></th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
-  <tbody>
-    <% @comments.each do |comment| %>
-      <tr>
+  <tbody class = "comment_list" >
+<% @comments.reverse_each do |comment| %>
+      <tr >
         <td class="image_td"><%= image_tag "default.png", class: "default" %></td>
         <td><%= comment.user.name %></td>
         <td><%= comment.content %></td>
@@ -30,9 +47,10 @@
         <% end %>
       </tr>
     <% end %>
+
   </tbody>
 </table>
-
+</div>
 <br>
 
 <%= link_to 'Back', articles_path %>

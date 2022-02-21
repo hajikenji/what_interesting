@@ -1,3 +1,4 @@
+<div class = "post_comment" >
 <%= form_with(model: [@article,  @comment],local: true) do |form| %>
   <% if comment.errors.any? %>
     <div id="error_explanation">
@@ -10,8 +11,7 @@
       </ul>
     </div>
   <% end %>
-<div class = "post_comment" >
-  <div class="field">
+  <div class="comment_field">
     <%= form.label "コメント" %>
     <%= form.text_field :content, placeholder: "5~15文字" %>
   </div>

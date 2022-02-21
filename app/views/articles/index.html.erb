@@ -1,9 +1,6 @@
 <div class = "top_part">
   <h4>最近、何が話題になった？</h4>
   <h5><%= @display_the_title %></h5>
-  <%= link_to '24時間ランキング', articles_path(value: "24hour_time_ranking") %>
-  <%= link_to '1週間のランキング', articles_path(value: "1week_time_ranking") %>
-  <%= link_to '総合ランキング', articles_path(value: "all_time_ranking") %>
 </div>
 <%= form_with(url: articles_path, local: true, method: :get) do |form| %>
 <div>

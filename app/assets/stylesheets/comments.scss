@@ -15,6 +15,19 @@
 .post_comment {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.comment_field {
+  text-align: center;
+}
+
+#comment_content {
+  width: 15rem;
+}
+
+.field_with_errors {
+  margin: auto;
 }
 
 .post_field {
@@ -32,7 +45,7 @@
   margin: auto;
   margin-top: 1rem;
   padding: 1rem;
-  width: 33rem;
+  width: 35rem;
 }
 
 .article_info {
@@ -51,21 +64,30 @@
 .comment_list {
   margin: auto;
   margin-top: 1rem;
-  padding: 1rem;
+  padding-top: 1rem;
   width: 30rem;
 }
 
 .comment_div {
   display: flex;
   margin: 0;
-  width: 40rem;
+  justify-content: center;
+  // width: 40rem;
 }
 
 .each_comment {
-  width: 22rem;
-  height: 6rem;
+  width: 24rem;
+  height: 8rem;
   list-style-type: none;
   margin-bottom: 1.5rem;
+}
+
+.user_name {
+  padding-left: 5rem;
+}
+
+.form_comment {
+  width: auto;
 }
 
 // .comment_info {

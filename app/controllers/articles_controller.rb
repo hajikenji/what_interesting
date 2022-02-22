@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
       @display_the_title = '24時間ランキング'
     end
 
-    if params[:sort_algorithm] == '3'
+    if params[:sort_algorithm] == '1'
       # 記事内いいね順で降順
       @articles = @articles.order_comment
     elsif params[:sort_algorithm] == '2'

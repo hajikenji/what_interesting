@@ -8,13 +8,13 @@
 <th>
   <div class="sort_field">
     <%= form.label "集計期間" %>
-    <%= form.select :time, { '24時間ランキング': 1, '1週間のランキング': 2, '総合ランキング': 3}, { include_blank: '選択', selected: @time } %>
+    <%= form.select :time, { '24時間ランキング': 1, '1週間のランキング': 2, '総合ランキング': 3}, { include_blank: '選択', selected: @time || 1} %>
 </div>
 </th>
 <th>
   <div class="sort_field">
     <%= form.label "並び順" %>
-    <%= form.select :sort_algorithm, { '総合': 1, 'いいね': 2, 'コメント': 3} , { include_blank: '選択', selected: @sort_algorithm }%>
+    <%= form.select :sort_algorithm, { 'コメント': 1, 'いいね': 2, '総合': 3} , { include_blank: '選択', selected: @sort_algorithm || 3 }%>
 </div>
 </th>
 <th>
@@ -33,7 +33,7 @@
         <li class="article_info text-info" >
           記事内いいね数:<%= article.article_statistic.fav %>
           記事内コメント数:<%= article.article_statistic.comment %>
-          合算:<%= article.ranking %>
+          総合:<%= article.ranking %>
         </li>
         <li class = "one_comment" ><%= link_to 'コメント一覧', new_article_comment_path(article, ranking: article.ranking) %></li>
         <li class = "article_source text-black-50"><%= article.created_at.strftime("%y年%-m月%-d日 %-H時") %>:Yahoo!ニュース</li>

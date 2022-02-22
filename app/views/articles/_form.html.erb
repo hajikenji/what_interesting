@@ -11,29 +11,6 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :link %>
-    <%= form.text_area :link %>
-  </div>
-
-  <div class="field">
-    <%= form.label :icon %>
-    <%= form.text_area :icon %>
-  </div>
-
-  <div class="field">
-    <%= form.label :ranking %>
-    <%= form.number_field :ranking %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>
 <% 5.times do |page| %>
   <%= button_to "#{page + 1}ページ目",articles_path(name: page + 1) %>

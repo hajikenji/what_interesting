@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      comment: コメント
+    attributes:
+      user:
+        name: 名前
+      comment:
+        content: コメント

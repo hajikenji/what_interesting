@@ -1,0 +1,8 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      comment: コメント
+    attributes:
+      comment:
+        content: コメント

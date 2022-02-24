@@ -26,13 +26,12 @@ end
 every 1.hours do
   runner "ArticleStatistic.scraping_yahoo(#{url(1)})"
 end
-every 1.hours do
-  sleep(600)
+every 2.hours do
   runner "ArticleStatistic.scraping_yahoo(#{url(2)})"
 end
-every 2.hours do
+every 3.hours do
   runner "ArticleStatistic.scraping_yahoo(#{url(3)})"
 end
-every 3.hours do
+every 4.hours do
   runner "ArticleStatistic.scraping_yahoo(#{url(4)})"
 end

@@ -1,28 +1,28 @@
+<div class = "background_image">
 <div class = "top_part">
   <h4>最近、何が話題になった？</h4>
   <h5><%= @display_the_title %></h5>
-</div>
+
 <%= form_with(url: articles_path, local: true, method: :get) do |form| %>
-<div>
+
 <table class = "sort_table">
 <th>
   <div class="sort_field">
     <%= form.label "集計期間" %>
-    <%= form.select :time, { '24時間ランキング': 1, '1週間のランキング': 2, '総合ランキング': 3}, { include_blank: '選択', selected: @time || 1} %>
+    <%= form.select :time, { '24時間ランキング': 1, '1週間のランキング': 2, '総合ランキング': 3}, { selected: @time || 1} %>
 </div>
 </th>
 <th>
   <div class="sort_field">
     <%= form.label "並び順" %>
-    <%= form.select :sort_algorithm, { 'コメント': 1, 'いいね': 2, '総合': 3} , { include_blank: '選択', selected: @sort_algorithm || 3 }%>
+    <%= form.select :sort_algorithm, { 'コメント': 1, 'いいね': 2, '総合': 3} , { selected: @sort_algorithm || 3 }%>
 </div>
 </th>
 <th>
   <%= form.submit class: "sort_btn btn btn-outline-primary btn-sm" %>
 </th>
 </table>
-<br>
-
+</div>
 <% end %>
 
 <div class = "article_list border border-secondary rounded" >
@@ -46,3 +46,4 @@
 </div>
 <br>
 <%= paginate @articles %>
+</div>

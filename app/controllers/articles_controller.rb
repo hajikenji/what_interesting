@@ -46,7 +46,7 @@ class ArticlesController < ApplicationController
     @sort_algorithm = params[:sort_algorithm]
 
     # kaminari、array用仕様
-    @articles = Kaminari.paginate_array(@articles).page(params[:page]).per(30)
+    @articles = Kaminari.paginate_array(@articles).page(params[:page]).per(100)
 
   end
 

@@ -99,23 +99,6 @@ RSpec.describe '記事テスト', type: :system do
 
         check_sort_totalling(active_record)
 
-        # c = Article.all.eager_load(:article_statistic)
-        # c.each do |article|
-        #   num = article.article_statistic.fav + article.article_statistic.comment
-        #   article[:ranking] = num
-        # end
-        # @d = c.sort_by { |x| x[:ranking] }.reverse
-
-        # def check(num)
-        #   a = page.all('.article_info')[num].text
-        #   b = a.slice(a.size - 5..a.size).gsub(':','').to_i
-        #   expect(b).to eq @d[num][:ranking]
-        # end
-
-        # check(0)
-        # check(1)
-        # num = page.all('.article_info').size
-        # check(num - 1)
       end
       it '24時間ランキング、総合' do
         select '24時間ランキング', from: 'time'

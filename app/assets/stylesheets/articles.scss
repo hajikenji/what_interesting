@@ -24,7 +24,7 @@
 }
 
 .each_article {
-  width: 33rem;
+  width: 29rem;
   height: 7rem;
   padding: 1rem;
   list-style-type: none;
@@ -54,25 +54,28 @@
   // border: solid;
   margin: auto;
   margin-top: 1rem;
-  padding: 1rem;
-  width: 40rem;
+  padding: 1.5rem 0rem 0rem 2rem;
+  // padding-left: 4rem;
+  // padding-bottom: 0;
+  width: 35.5rem;
 }
 
 .article_and_comment {
   display: flex;
   margin: 0;
-  width: 40rem;
+  width: 36rem;
 }
 
 .ranking_list {
   display: flex;
   list-style-type: none;
   margin-bottom: 0;
+  padding-left: 1.5rem;
 }
 
 .the_number {
   text-align: end;
-  padding-top: 2.5rem;
+  padding-top: 2.7rem;
 }
 
 .article_source {

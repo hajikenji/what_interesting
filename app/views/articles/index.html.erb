@@ -8,20 +8,19 @@
 <th>
   <div class="sort_field">
     <%= form.label "集計期間" %>
-    <%= form.select :time, { '24時間ランキング': 1, '1週間のランキング': 2, '総合ランキング': 3}, { include_blank: '選択', selected: @time || 1} %>
+    <%= form.select :time, { '24時間ランキング': 1, '1週間のランキング': 2, '総合ランキング': 3}, { selected: @time || 1} %>
 </div>
 </th>
 <th>
   <div class="sort_field">
     <%= form.label "並び順" %>
-    <%= form.select :sort_algorithm, { 'コメント': 1, 'いいね': 2, '総合': 3} , { include_blank: '選択', selected: @sort_algorithm || 3 }%>
+    <%= form.select :sort_algorithm, { 'コメント': 1, 'いいね': 2, '総合': 3} , { selected: @sort_algorithm || 3 }%>
 </div>
 </th>
 <th>
   <%= form.submit class: "sort_btn btn btn-outline-primary btn-sm" %>
 </th>
 </table>
-<br>
 
 <% end %>
 

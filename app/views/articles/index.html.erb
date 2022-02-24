@@ -1,9 +1,10 @@
+<div class = "background_image">
 <div class = "top_part">
   <h4>最近、何が話題になった？</h4>
   <h5><%= @display_the_title %></h5>
-</div>
+
 <%= form_with(url: articles_path, local: true, method: :get) do |form| %>
-<div>
+
 <table class = "sort_table">
 <th>
   <div class="sort_field">
@@ -21,7 +22,7 @@
   <%= form.submit class: "sort_btn btn btn-outline-primary btn-sm" %>
 </th>
 </table>
-
+</div>
 <% end %>
 
 <div class = "article_list border border-secondary rounded" >
@@ -45,3 +46,4 @@
 </div>
 <br>
 <%= paginate @articles %>
+</div>

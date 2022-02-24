@@ -22,24 +22,29 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-#devise系
+# devise系
 gem 'devise'
 gem 'devise-i18n'
-gem 'rexml'
 gem 'rails-i18n', '~> 6.0'
+gem 'rexml'
 
-#管理者系
-gem 'rails_admin', ['>= 3.0.0.rc', '< 4']
+# 管理者系
 gem 'cancancan'
+gem 'rails_admin', ['>= 3.0.0.rc', '< 4']
 
 gem 'dotenv-rails' # 開発環境で環境変数を操作するのに必要
-gem 'unicorn' # アプリケーションサーバのunicorn
 gem 'faker'
+gem 'unicorn' # アプリケーションサーバのunicorn
 
 # bootstrap系
 gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
 
+# 時間指定スクレイピング
+gem 'whenever', require: false
+
+# kaminari
+gem 'kaminari'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -49,33 +54,32 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'spring'
 
-  #テスト系
-  gem 'rspec-rails'
-  gem 'spring-commands-rspec'
+  # テスト系
   gem 'factory_bot_rails'
   gem 'launchy'
+  gem 'rspec-rails'
+  gem 'spring-commands-rspec'
 
-  #AWS系
+  # AWS系
+  gem 'bcrypt_pbkdf'
   gem 'capistrano', '3.16.0' # capistranoのツール一式
+  gem 'capistrano3-unicorn'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
-  gem 'capistrano3-unicorn'
   gem 'ed25519'
-  gem 'bcrypt_pbkdf'
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.2'
+  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener_web'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
@@ -87,4 +91,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

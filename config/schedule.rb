@@ -11,8 +11,23 @@ set :environment, :development
 
 # yahoo
 # url = "https://news.yahoo.co.jp/topics/top-picks?page=#{params[:name].to_i}"
-def url(page_number)
-  "https://news.yahoo.co.jp/topics/top-picks?page=#{page_number}"
+# def url(page_number)
+#   "https://news.yahoo.co.jp/topics/top-picks?page=#{page_number}"
+# end
+
+def time(times, minutes)
+  @time_list = []
+  time_whenever(times, minutes, 'am')
+  time_whenever(times, minutes, 'pm')
+end
+def time_whenever(times, minutes, noon)
+  increment = 12 / times
+  num = 0
+  times.times do |_a|
+    @time_list << "#{num}:#{minutes} #{noon}"
+    num += increment
+  end
+  @time_list
 end
 
 # 3時間毎に実行するスケジューリング
@@ -23,15 +38,15 @@ every 15.minutes do
   runner "ArticleStatistic.whenever_test"
 end
 
-every 1.hours do
-  runner "ArticleStatistic.scraping_yahoo(#{url(1)})"
+every 1.day, at: time(12, '00') do
+  runner "ArticleStatistic.scraping_yahoo(1)"
 end
-every 2.hours do
-  runner "ArticleStatistic.scraping_yahoo(#{url(2)})"
+every 1.day, at: time(6, '10') do
+  runner "ArticleStatistic.scraping_yahoo(2)"
 end
-every 3.hours do
-  runner "ArticleStatistic.scraping_yahoo(#{url(3)})"
+every 1.day, at: time(4, '20') do
+  runner "ArticleStatistic.scraping_yahoo(3)"
 end
-every 4.hours do
-  runner "ArticleStatistic.scraping_yahoo(#{url(4)})"
+every 1.day, at: time(3, '30') do
+  runner "ArticleStatistic.scraping_yahoo(4)"
 end

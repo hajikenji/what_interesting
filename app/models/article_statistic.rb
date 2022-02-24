@@ -3,7 +3,7 @@ class ArticleStatistic < ApplicationRecord
 
 
   def self.whenever_test
-    p "明石焼き食いたい#{Time.now}"
+    p "明石焼き食いたい!#{Time.now}"
   end
 
   def self.scraping_yahoo(url)

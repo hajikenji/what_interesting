@@ -6,10 +6,11 @@ class ArticleStatistic < ApplicationRecord
     p "明石焼き食いたい!#{Time.now}"
   end
 
-  def self.scraping_yahoo(url)
+  def self.scraping_yahoo(url_page_number)
     require 'nokogiri'
     require 'open-uri'
     # 大元のサイト取得
+    url = "https://news.yahoo.co.jp/topics/top-picks?page=#{url_page_number.to_i}"
 
     sleep(2)
 

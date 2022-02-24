@@ -15,6 +15,7 @@ set :environment, :development
 #   "https://news.yahoo.co.jp/topics/top-picks?page=#{page_number}"
 # end
 
+
 def time(times, minutes)
   @time_list = []
   time_whenever(times, minutes, 'am')

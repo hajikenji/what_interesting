@@ -1,6 +1,11 @@
 class ArticleStatistic < ApplicationRecord
   belongs_to :article
 
+
+  def self.whenever_test
+    p "明石焼き食いたい"
+  end
+
   def self.scraping_yahoo(url)
     require 'nokogiri'
     require 'open-uri'

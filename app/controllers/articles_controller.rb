@@ -6,13 +6,12 @@ class ArticlesController < ApplicationController
 
 
     if params[:time] == "3"
-      # 記事内いいね順で降順
+      # 記事作成日時が全て
       @articles = Article.all
       @display_the_title = '総合ランキング'
     elsif params[:time] == "2"
       # 記事作成日時が1週間以内のもので絞り込み
       @articles = Article.where_1week_articles
-      # 記事内いいね順で降順
       @display_the_title = '1週間のランキング'
     else
       # 記事作成日時が24時間以内のもので絞り込み
@@ -21,7 +20,7 @@ class ArticlesController < ApplicationController
     end
 
     if params[:sort_algorithm] == '1'
-      # 記事内いいね順で降順
+      # 記事内コメント順で降順
       @articles = @articles.order_comment
     elsif params[:sort_algorithm] == '2'
       # 記事内いいね順で降順
@@ -33,10 +32,11 @@ class ArticlesController < ApplicationController
         article[:ranking] = num
       end
 
-      # 記事作成日時が24時間以内のもので絞り込み
+      # # 記事内反響の総数順で降順
       @articles = @articles.sort_by { |x| x[:ranking] }.reverse
     end
 
+    # 記事内favとcomment数を合算して1記事ごとに反響の総数を計算している（sort_algorithmが3の時用、要リファクタリング）
     @articles.each do |article|
       num = article.article_statistic.fav + article.article_statistic.comment
       article[:ranking] = num
@@ -45,7 +45,8 @@ class ArticlesController < ApplicationController
     @time = params[:time]
     @sort_algorithm = params[:sort_algorithm]
 
-
+    # kaminari、array用仕様
+    @articles = Kaminari.paginate_array(@articles).page(params[:page]).per(30)
 
   end
 

@@ -1,7 +1,7 @@
 # Rails.rootを使用するために必要
 require File.expand_path(File.dirname(__FILE__) + "/environment")
 # cronを実行する環境変数
-rails_env = ENV['RAILS_ENV'] || :development
+rails_env = ENV['RAILS_ENV'] || :production
 # cronを実行する環境変数をセット
 set :environment, rails_env
 # 出力先のログファイルの指定
@@ -10,6 +10,6 @@ set :output, "#{Rails.root}/log/cron.log"
 set :environment, :development
 
 # 3時間毎に実行するスケジューリング
-every 1.minutes do
+every 10.minutes do
   runner "ArticleStatistic.whenever_test"
 end

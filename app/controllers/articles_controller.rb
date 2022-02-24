@@ -42,7 +42,7 @@ class ArticlesController < ApplicationController
       article[:ranking] = num
     end
 
-    @time = params[:time]
+    @time = params[:time] 
     @sort_algorithm = params[:sort_algorithm]
 
     # kaminari、array用仕様
@@ -66,7 +66,7 @@ class ArticlesController < ApplicationController
   # POST /articles or /articles.json
   def create
     if params[:name].present?
-      p ArticleStatistic.scraping_yahoo("https://news.yahoo.co.jp/topics/top-picks?page=#{params[:name].to_i}")
+      p ArticleStatistic.scraping_yahoo(params[:name].to_i)
     end
     # @article = Article.new(article_params)
     redirect_to articles_path

@@ -11,9 +11,9 @@ set :environment, :development
 
 # yahoo
 # url = "https://news.yahoo.co.jp/topics/top-picks?page=#{params[:name].to_i}"
-def url(page_number)
-  "https://news.yahoo.co.jp/topics/top-picks?page=#{page_number}"
-end
+# def url(page_number)
+#   "https://news.yahoo.co.jp/topics/top-picks?page=#{page_number}"
+# end
 
 # 3時間毎に実行するスケジューリング
 every 10.minutes do
@@ -24,14 +24,14 @@ every 15.minutes do
 end
 
 every 1.hours do
-  runner "ArticleStatistic.scraping_yahoo(#{url(1)})"
+  runner "ArticleStatistic.scraping_yahoo(1)"
 end
 every 2.hours do
-  runner "ArticleStatistic.scraping_yahoo(#{url(2)})"
+  runner "ArticleStatistic.scraping_yahoo(2)"
 end
 every 3.hours do
-  runner "ArticleStatistic.scraping_yahoo(#{url(3)})"
+  runner "ArticleStatistic.scraping_yahoo(3)"
 end
 every 4.hours do
-  runner "ArticleStatistic.scraping_yahoo(#{url(4)})"
+  runner "ArticleStatistic.scraping_yahoo(4)"
 end

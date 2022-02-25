@@ -8,15 +8,15 @@ class ArticlesController < ApplicationController
     if params[:time] == "3"
       # 記事作成日時が全て
       @articles = Article.all
-      @display_the_title = '総合ランキング'
+      # @display_the_title = '総合ランキング'
     elsif params[:time] == "2"
       # 記事作成日時が1週間以内のもので絞り込み
       @articles = Article.where_1week_articles
-      @display_the_title = '1週間のランキング'
+      # @display_the_title = '1週間のランキング'
     else
       # 記事作成日時が24時間以内のもので絞り込み
       @articles = Article.where_24hour_articles
-      @display_the_title = '24時間ランキング'
+      # @display_the_title = '24時間ランキング'
     end
 
     if params[:sort_algorithm] == '1'

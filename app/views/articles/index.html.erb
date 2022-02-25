@@ -1,7 +1,8 @@
 <div class = "background_image">
 <div class = "top_part">
-  <h4>最近、何が話題になった？</h4>
-  <h5><%= @display_the_title %></h5>
+  <h3>最近、何が話題になった？</h3>
+  <h5><%#= @display_the_title %></h5>
+  <h5 class = "description">このサイトは、各サイトの面白い記事から読めるサイトです。</h5>
 
 <%= form_with(url: articles_path, local: true, method: :get) do |form| %>
 

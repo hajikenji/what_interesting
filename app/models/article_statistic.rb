@@ -10,9 +10,10 @@ class ArticleStatistic < ApplicationRecord
     require 'nokogiri'
     require 'open-uri'
     # 大元のサイト取得
+    puts url_page_number
     url = "https://news.yahoo.co.jp/topics/top-picks?page=#{url_page_number.to_i}"
 
-    sleep(2)
+    sleep(3)
 
     doc = Nokogiri::HTML(URI.open(url))
 
@@ -31,7 +32,7 @@ class ArticleStatistic < ApplicationRecord
 
     # 各ニュースごと、1記事ごとにタイトルやコメント数を情報収集していく
     root_list.each do |the_url|
-      sleep(2)
+      sleep(3)
 
       #記事削除の404などエラーが起きたら1記事飛ばす
       begin
@@ -54,7 +55,7 @@ class ArticleStatistic < ApplicationRecord
         #  - Yahoo!ニュース の文字を取り除く
         title = title.slice(0..title.size - 14)
         p title
-        sleep(2)
+        sleep(3)
         doc = Nokogiri::HTML(URI.open(url))
         # タイトルがないか || コメントがないか || コメントが0なら飛ばす。
         # 0も判定に入れたのはコメ機能なしなのに「0」が埋め込まれていた記事があったため
@@ -120,5 +121,6 @@ class ArticleStatistic < ApplicationRecord
       num += 1
     end
     ArticleStatistic.upsert_all(list_article_statictics_update, unique_by: :article_id)
+    puts Time.now
   end
 end

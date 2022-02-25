@@ -39,13 +39,13 @@ every 15.minutes do
   runner "ArticleStatistic.whenever_test"
 end
 
-every 1.day, at: time(12, '00') do
+every 1.day, at: time(6, '00') do
   runner "ArticleStatistic.scraping_yahoo(1)"
 end
-every 1.day, at: time(6, '10') do
+every 1.day, at: time(4, '10') do
   runner "ArticleStatistic.scraping_yahoo(2)"
 end
-every 1.day, at: time(4, '20') do
+every 1.day, at: time(3, '20') do
   runner "ArticleStatistic.scraping_yahoo(3)"
 end
 every 1.day, at: time(3, '30') do

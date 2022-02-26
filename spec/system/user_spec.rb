@@ -4,7 +4,7 @@ RSpec.describe 'userテスト', type: :system do
   describe 'user' do
     before do
       visit articles_path
-      create(:article_statistic)
+       create(:article_statistic_today, article: create(:article_today))
     end
     context 'ログイン関連' do
       # 新規登録はmodelテストでやっているので、単純に通過するかだけをテストする

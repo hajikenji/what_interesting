@@ -1,6 +1,6 @@
 $worker  = 2
-$timeout = 190
-# 自分のアプリケーション名（currentがつくことに注意）
+$timeout = 200
+# アプリケーション名にcurrentがつく
 $app_dir = '/var/www/what_interesting/current'
 $listen  = File.expand_path 'tmp/sockets/unicorn.sock', $app_dir
 $pid     = File.expand_path 'tmp/pids/unicorn.pid', $app_dir

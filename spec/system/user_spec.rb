@@ -91,7 +91,6 @@ RSpec.describe 'userテスト', type: :system do
           @comment[:user_id] = @user.id
           @comment.save
           visit current_path
-          expect(page).not_to have_link nil, href: edit_article_comment_path(@article, @comment)
           expect(page).not_to have_link nil, href: article_comment_path(@article, @comment)
         end
       it '自分のはedit,destroyできる' do

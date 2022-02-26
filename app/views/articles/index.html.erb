@@ -10,13 +10,13 @@
 <th>
   <div class="sort_field">
     <%= form.label "集計期間" %>
-    <%= form.select :time, { '24時間ランキング': 1, '1週間のランキング': 2, '総合ランキング': 3}, { selected: @time || 1} %>
+    <%= form.select :time, { '24時間ランキング': '24hours', '1週間のランキング': '1_week', '総合ランキング': 'all_time'}, { selected: @selectbox_time || '24hours'} %>
 </div>
 </th>
 <th>
   <div class="sort_field">
     <%= form.label "並び順" %>
-    <%= form.select :sort_algorithm, { 'コメント': 1, 'いいね': 2, '総合': 3} , { selected: @sort_algorithm || 3 }%>
+    <%= form.select :sort_algorithm, { 'コメント': 'comment', 'いいね': 'fav', '総合': 'total'} , { selected: @selectbox_sort_algorithm || 'total' }%>
 </div>
 </th>
 <th>
@@ -25,7 +25,6 @@
 </table>
 </div>
 <% end %>
-
 <div class = "article_list border border-secondary rounded" >
 <% @articles.each.with_index(1) do |article, ranking_number| %>
     <div class = "article_and_comment">

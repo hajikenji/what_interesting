@@ -12,7 +12,7 @@ require 'rails_helper'
 RSpec.describe 'サイト全体テスト', type: :system do
   describe '閲覧機能' do
     before do
-      create(:article_statistic)
+      create(:article_statistic_today, article: create(:article_today))
       create(:user)
       visit articles_path
     end

@@ -4,7 +4,7 @@ RSpec.describe 'userテスト', type: :system do
   describe 'user' do
     before do
       visit articles_path
-      create(:article_statistic)
+       create(:article_statistic_today, article: create(:article_today))
     end
     context 'ログイン関連' do
       # 新規登録はmodelテストでやっているので、単純に通過するかだけをテストする
@@ -91,7 +91,6 @@ RSpec.describe 'userテスト', type: :system do
           @comment[:user_id] = @user.id
           @comment.save
           visit current_path
-          expect(page).not_to have_link nil, href: edit_article_comment_path(@article, @comment)
           expect(page).not_to have_link nil, href: article_comment_path(@article, @comment)
         end
       it '自分のはedit,destroyできる' do

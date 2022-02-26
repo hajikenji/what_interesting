@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe '記事テスト', type: :system do
   describe 'article' do
     before do
-      create(:article_statistic)
+       create(:article_statistic_today, article: create(:article_today))
       visit articles_path
     end
     context 'サイト訪問' do

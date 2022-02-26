@@ -3,9 +3,10 @@ class ArticleStatistic < ApplicationRecord
 
 
   def self.whenever_test
-    p "明石焼き食いたい!#{Time.now}"
+    p "明石焼き食いたいver2/26#{Time.now}"
   end
 
+  # yahooに対するスクレイピング機能
   def self.scraping_yahoo(url_page_number)
     require 'nokogiri'
     require 'open-uri'
@@ -15,6 +16,7 @@ class ArticleStatistic < ApplicationRecord
 
     sleep(3)
 
+    # ニュースが一覧になっているページを開く
     doc = Nokogiri::HTML(URI.open(url))
 
     # 各ニュースのURL取得
@@ -22,7 +24,6 @@ class ArticleStatistic < ApplicationRecord
     doc.xpath('//a[@class="newsFeed_item_link"]').each do |page|
       root_list << page['href']
     end
-
 
     ## 各ニュースごとに情報収集編
     # バルクインサートと、そのためのリストの準備
@@ -34,19 +35,10 @@ class ArticleStatistic < ApplicationRecord
     root_list.each do |the_url|
       sleep(3)
 
-      #記事削除の404などエラーが起きたら1記事飛ばす
-      begin
-        doc = Nokogiri::HTML(URI.open(the_url))
-      rescue StandardError => e
-        p e
-        next
-      end
-
- 
-
       ## エラーが起きたら1記事飛ばす処理の集合
       # 記事削除の404などエラーが起きたら1記事飛ばす
       begin
+        doc = Nokogiri::HTML(URI.open(the_url))
         # コメントとurl収集、この後DBにバルクインサートする
         comments = doc.xpath('//*[@id="uamods-pickup"]/div[2]/a/span[2]').text.to_i
         url = doc.xpath('//*[@id="uamods-pickup"]/div[2]/div/p/a')[0]['href']
@@ -69,14 +61,9 @@ class ArticleStatistic < ApplicationRecord
         next
       end
 
-      # created_at用に記事が入稿した時間を取得する。upsert_allは現時点全てupdateしてしまい入稿時間がわからなくなるため
+      # created_at用に記事が入稿した時間を取得する。upsert_allは現時点全ての項目をupdateしてしまい入稿時間がわからなくなるため
       time = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text
       time_created_article = Time.parse(time)
-      # time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.size
-      # time_created_article = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text.slice(-5..time_created_article)
-      # t = Time.new.to_s
-      # time_created_article = Time.parse("#{t.slice(0..10)}#{time_created_article}")
-
 
       ## 記事内いいねがややこしい場所にあるため、膨大な情報から絞り込みしていき、最後scanで数字だけ取り出す
       # 記事詳細ページの中からscript関連の場所だけ抜き取り、配列の形で保存
@@ -105,8 +92,6 @@ class ArticleStatistic < ApplicationRecord
       list_article_statictics_update << { comment: comments, fav: sum_reaction, created_at: time_created_article,
                                           updated_at: time_zone }
 
-
-      
     end
     
     ## バルクインサート部分

@@ -16,7 +16,7 @@ class ArticlesController < ApplicationController
   def create
     if params[:name].present?
       # スクレイピング機能
-      p ArticleStatistic.scraping_yahoo(params[:name].to_i)
+      ArticleStatistic.scraping_yahoo(params[:name].to_i)
     end
     redirect_to articles_path
 

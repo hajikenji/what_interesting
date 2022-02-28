@@ -21,4 +21,9 @@ class ArticlesController < ApplicationController
     redirect_to articles_path
 
   end
+
+  # 手動スクレイピング機能（念の為）
+  def new
+    @article = Article.new
+  end
 end

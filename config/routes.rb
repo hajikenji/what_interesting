@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # resources :users, only: %i[show update]
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
-  resources :articles, only: %i[index new] do
+  resources :articles, only: %i[index new create] do
     resources :comments, only: %i[new create update destroy]
   end
   namespace :my do

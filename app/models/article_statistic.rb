@@ -56,7 +56,7 @@ class ArticleStatistic < ApplicationRecord
         doc = Nokogiri::HTML(URI.open(url))
         # タイトルがないか || コメントがないか || コメントが0なら飛ばす。
         # 0も判定に入れたのはコメ機能なしなのに「0」が埋め込まれていた記事があったため
-        next if doc.search('title').text.blank? || comments.blank? || comments == 0
+        next if doc.search('title').text.blank? || @comments.blank? || @comments == 0
 
         # urlがダブってないかチェック。yahoo上で同じ記事が連続で掲載されてたことがあり、ダブるとupsertがエラーるために処理
         check_unique_url << url
@@ -92,10 +92,10 @@ class ArticleStatistic < ApplicationRecord
 
       # upsert_allの形式に合わせ、[{},{}] の形式で各情報を入れていく。Timeのto_sは変換しないとエラーになるため
       @time_zone = Time.now.to_s
-      @list_article_update << {title: title, link: url, created_at: time_created_article,
-                               updated_at: time_zone }
-      @list_article_statictics_update << { comment: comments, fav: sum_reaction, created_at: time_created_article,
-                                          updated_at: time_zone }
+      @list_article_update << {title: @title, link: @url, created_at: @time_created_article,
+                               updated_at: @time_zone }
+      @list_article_statictics_update << { comment: @comments, fav: @sum_reaction, created_at: @time_created_article,
+                                          updated_at: @time_zone }
 
     binding.irb
     end

@@ -3,7 +3,7 @@ class ArticleStatistic < ApplicationRecord
 
 
   def self.whenever_test
-    p "動作中ver5/30#{Time.now}"
+    p "動作中ver3/3#{Time.now}"
   end
 
   class << self
@@ -48,8 +48,9 @@ class ArticleStatistic < ApplicationRecord
         # 記事削除の404などエラーが起きたら1記事飛ばす
         begin
           doc = Nokogiri::HTML(URI.open(the_url))
+          binding.irb
           # コメントとurl収集、この後DBにバルクインサートする
-          # @comments = doc.xpath('//*[@id="uamods-pickup"]/div[2]/a/span[2]').text.to_i
+          @comments = doc.xpath('//*[@id="uamods-pickup"]/div[2]/a/span[2]').text.to_i
           @url = doc.xpath('//*[@id="uamods-pickup"]/div[2]/div/p/a')[0]['href']
           # タイトル収集、この後DBにバルクインサートする
           title = doc.search('title').text
@@ -58,8 +59,9 @@ class ArticleStatistic < ApplicationRecord
           p title
           sleep(3)
           doc = Nokogiri::HTML(URI.open(@url))
-          # タイトルがないか で1記事飛ばす
-          next if doc.search('title').text.blank? 
+          # タイトルがないか || コメントがないか || コメントが0なら飛ばす。
+          # 0も判定に入れたのはコメ機能なしなのに「0」が埋め込まれていた記事があったため
+          next if doc.search('title').text.blank? || @comments.blank? || @comments == 0
   
           # urlがダブってないかチェック。yahoo上で同じ記事が連続で掲載されてたことがあり、ダブるとupsertがエラーるために処理
           check_unique_url << @url
@@ -106,12 +108,8 @@ class ArticleStatistic < ApplicationRecord
           end
 
           # コメント編
-          num_slice = doc.xpath('//script').text.index('totalCommentCount')
-          comments = doc.xpath('//script').text.slice(num_slice..num_slice + 30).scan(/\d+/)[0].to_i
-
-          # コメントがないか || コメントが0なら飛ばす。
-          # 0も判定に入れたのはコメ機能なしなのに「0」が埋め込まれていた記事があったため
-          next if comments.blank? || comments == 0
+          num_slice = list_scripttag_of_page.index('totalCommentCount')
+          comments = list_scripttag_of_page.slice(num_slice..num_slice + 30)[0].to_i
 
         rescue => exception
           p exception

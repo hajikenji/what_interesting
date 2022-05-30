@@ -3,7 +3,7 @@ class ArticleStatistic < ApplicationRecord
 
 
   def self.whenever_test
-    p "動作中ver5/30#{Time.now}"
+    p "動作中ver3/3#{Time.now}"
   end
 
   class << self
@@ -111,7 +111,7 @@ class ArticleStatistic < ApplicationRecord
 
           # コメントがないか || コメントが0なら飛ばす。
           # 0も判定に入れたのはコメ機能なしなのに「0」が埋め込まれていた記事があったため
-          next if comments.blank? || comments == 0
+          next if @comments.blank? || @comments == 0
 
         rescue => exception
           p exception

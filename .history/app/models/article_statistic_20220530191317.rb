@@ -3,7 +3,7 @@ class ArticleStatistic < ApplicationRecord
 
 
   def self.whenever_test
-    p "動作中ver5/30#{Time.now}"
+    p "動作中ver3/3#{Time.now}"
   end
 
   class << self

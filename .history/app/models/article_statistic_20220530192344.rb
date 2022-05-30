@@ -106,6 +106,7 @@ class ArticleStatistic < ApplicationRecord
           end
 
           # コメント編
+          binding.irb
           num_slice = doc.xpath('//script').text.index('totalCommentCount')
           comments = doc.xpath('//script').text.slice(num_slice..num_slice + 30).scan(/\d+/)[0].to_i
 

@@ -3,7 +3,7 @@ class ArticleStatistic < ApplicationRecord
 
 
   def self.whenever_test
-    p "動作中ver5/30#{Time.now}"
+    p "動作中ver3/3#{Time.now}"
   end
 
   class << self
@@ -49,7 +49,7 @@ class ArticleStatistic < ApplicationRecord
         begin
           doc = Nokogiri::HTML(URI.open(the_url))
           # コメントとurl収集、この後DBにバルクインサートする
-          # @comments = doc.xpath('//*[@id="uamods-pickup"]/div[2]/a/span[2]').text.to_i
+          @comments = doc.xpath('//*[@id="uamods-pickup"]/div[2]/a/span[2]').text.to_i
           @url = doc.xpath('//*[@id="uamods-pickup"]/div[2]/div/p/a')[0]['href']
           # タイトル収集、この後DBにバルクインサートする
           title = doc.search('title').text
@@ -58,8 +58,9 @@ class ArticleStatistic < ApplicationRecord
           p title
           sleep(3)
           doc = Nokogiri::HTML(URI.open(@url))
-          # タイトルがないか で1記事飛ばす
-          next if doc.search('title').text.blank? 
+          # タイトルがないか || コメントがないか || コメントが0なら飛ばす。
+          # 0も判定に入れたのはコメ機能なしなのに「0」が埋め込まれていた記事があったため
+          next if doc.search('title').text.blank? || @comments.blank? || @comments == 0
   
           # urlがダブってないかチェック。yahoo上で同じ記事が連続で掲載されてたことがあり、ダブるとupsertがエラーるために処理
           check_unique_url << @url
@@ -86,42 +87,29 @@ class ArticleStatistic < ApplicationRecord
   
         ## 記事内いいねがややこしい場所にあるため、膨大な情報から絞り込みしていき、最後scanで数字だけ取り出す
         # 記事詳細ページの中からscript関連の場所だけ抜き取り、配列の形で保存
-        ## 追加：ページ仕様が変更されコメントの取得が元仕様では困難になったため、ここでコメントを取るように変更
-        begin
-          list_scripttag_of_page = []
-          doc.xpath('//script').each do |page|
-            list_scripttag_of_page << page
-          end
+        list_reaction = []
+        doc.xpath('//script').each do |page|
+          binding.irb
+          list_reaction << page
+        end
 
-          # 取りたい情報が配列の何番目にあるか
-          num_reaction = list_scripttag_of_page.find_index { |n| n.content.index('window.__PRELOADED_STATE__') }
+        # 取りたい情報が配列の何番目にあるか
+        num_reaction = list_reaction.find_index { |n| n.content.index('window.__PRELOADED_STATE__') }
 
-          # 取りたい情報がその文字列の何字目にあるか
-          num_slice = list_scripttag_of_page[num_reaction].content.index('articleReactions')
+        # 取りたい情報がその文字列の何字目にあるか
+        num_slice = list_reaction[num_reaction].content.index('articleReactions')
 
-          # ヤフーのリアクションボタンの数字の抽出して合計値を算出
-          @sum_reaction = 0
-          list_scripttag_of_page[num_reaction].content.slice(num_slice..num_slice + 60).scan(/\d+/).each do |reaction|
-            @sum_reaction += reaction.to_i
-          end
-
-          # コメント編
-          num_slice = doc.xpath('//script').text.index('totalCommentCount')
-          comments = doc.xpath('//script').text.slice(num_slice..num_slice + 30).scan(/\d+/)[0].to_i
-
-          # コメントがないか || コメントが0なら飛ばす。
-          # 0も判定に入れたのはコメ機能なしなのに「0」が埋め込まれていた記事があったため
-          next if comments.blank? || comments == 0
-
-        rescue => exception
-          p exception
+        # ヤフーのリアクションボタンの数字の抽出して合計値を算出
+        @sum_reaction = 0
+        list_reaction[num_reaction].content.slice(num_slice..num_slice + 60).scan(/\d+/).each do |reaction|
+          @sum_reaction += reaction.to_i
         end
 
         # upsert_allの形式に合わせ、[{},{}] の形式で各情報を入れていく。Timeのto_sは変換しないとエラーになるため
         @time_zone = Time.now.to_s
         @list_article_update << {title: @title, link: @url, created_at: @time_created_article,
                                  updated_at: @time_zone }
-        @list_article_statictics_update << { comment: comments, fav: @sum_reaction, created_at: @time_created_article,
+        @list_article_statictics_update << { comment: @comments, fav: @sum_reaction, created_at: @time_created_article,
                                             updated_at: @time_zone }
 
       end

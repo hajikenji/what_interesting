@@ -12,11 +12,11 @@ class ArticlesController < ApplicationController
 
   end
 
-  # 手動スクレイピング機能（念の為）
+  # 手動スクレイピング機能（念の為残す）
   def create
     if params[:name].present?
       # スクレイピング機能
-      p ArticleStatistic.scraping_yahoo(params[:name].to_i)
+      ArticleStatistic.scraping_yahoo(params[:name].to_i)
     end
     redirect_to articles_path
 

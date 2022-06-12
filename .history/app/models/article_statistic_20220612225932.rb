@@ -3,7 +3,7 @@ class ArticleStatistic < ApplicationRecord
 
 
   def self.whenever_test
-    p "動作中ver6/12#{Time.now}"
+    p "動作中ver5/30#{Time.now}"
   end
 
   class << self
@@ -74,6 +74,7 @@ class ArticleStatistic < ApplicationRecord
           time = doc.xpath('//*[@id="uamods"]/header/div/div[1]/div/p/time').text
           @time_created_article = Time.parse(time)
           p @time_created_article
+          p Time.now.to_s
           @time_created_article = Time.parse(time)
           if Time.parse(time) == nil
             raise
